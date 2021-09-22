@@ -1,8 +1,8 @@
+import './Account.css';
 import AccountService from '../../../../services/AccountService';
 import { connect } from 'react-redux';
 import AccountDetails from '../AccountDetails/AccountDetails';
 const { useEffect } = require('react');
-// import account details component
 
 const Account = ({ userInfo, setUserInfo }) => {
   
@@ -17,7 +17,7 @@ const Account = ({ userInfo, setUserInfo }) => {
   }, [setUserInfo]);
   
   return (
-    <div>
+    <div className='account-container'>
       <AccountDetails userInfo={userInfo}/>
     </div>
   );
