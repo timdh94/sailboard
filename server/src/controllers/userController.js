@@ -1,54 +1,88 @@
 const db = require('../models/index.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const { Op } = require('sequelize');
+const jwt = require('jsonwebtoken');
+const { ACCESS_TOKEN_SECRET } = require('../config');
 
-const createUser = async (req, res) => {
-  const newUser = req.body;
-  if (!newUser.userName || !newUser.email || !newUser.password || !newUser.firstName || !newUser.lastName || !newUser.country) {
-    res.status(400).send('Missing form fields');
-    return;
-  }
-  
-  // TODOS:
-  // check for username / password lengths
-  
-  const userExists = await db.User.findOne({
-    where: {
-      [Op.or]: [
-        {email: newUser.email},
-        {userName: newUser.userName},
-      ]
+const createAccount = async (req, res) => {
+  try {
+    const newUser = req.body;
+    console.log(newUser);
+    if (!newUser.userName || !newUser.email || !newUser.password || !newUser.firstName || !newUser.lastName || !newUser.country) {
+      res.status(400).send('Missing form fields');
+      return;
     }
-  });
-
-  if (userExists) {
-    res.status(409).send('Username or email already exists');
-    return;
+    
+    // TODOS:
+    // check for username / password lengths
+    
+    const userExists = await db.User.findOne({
+      where: {
+        [Op.or]: [
+          {email: newUser.email},
+          {userName: newUser.userName},
+        ]
+      }
+    });
+  
+    if (userExists) {
+      console.log('User already exists');
+      res.status(409).send({
+        message: 'User with that name or email already exists'
+      });
+      return;
+    }
+    const { password, ...userWithoutPass } = newUser;
+    console.log(userWithoutPass);
+  
+    const createdUser = await db.User.create(userWithoutPass);
+    if (!createdUser) {
+      res.status(500).send('Error creating user');
+      return;
+    }
+  
+    const createdPassword = await db.Password.create({
+      UserId: createdUser.id,
+      password: bcrypt.hashSync(newUser.password, saltRounds),
+    });
+    if (!createdPassword) {
+      res.status(500).send('Error creating password');
+      return;
+    }
+    
+    const token = jwt.sign({ uid: createdUser.id }, ACCESS_TOKEN_SECRET, {
+      expiresIn: '7d' // CHANGE THIS (refresh tokens?)
+    });
+  
+    res.status(200).send({
+      message: 'Account created',
+      accessToken: token,
+    });
+  } catch (err) {
+    console.log(err);
   }
-  const { password, ...userWithoutPass } = newUser;
+};
 
-  const createdUser = await db.User.create(userWithoutPass);
-  if (!createdUser) {
-    res.status(500).send('Error creating user');
-    return;
-  }
-
-  const createdPassword = await db.Password.create({
-    UserId: createdUser.id,
-    password: bcrypt.hashSync(newUser.password, saltRounds),
+const getUserById = async (req, res) => {
+  if (!req.userId) req.status(403).send({
+    message: 'Invalid credentials'
   });
-  if (!createdPassword) {
-    res.status(500).send('Error creating password');
+  
+  const userInfo = await db.User.findOne({
+    where: { id: req.userId }
+  });
+  
+  if (!userInfo) {
+    res.status(400).send({
+      message: 'No user found'
+    });
     return;
   }
   
-  const token = jwt.sign({ uid: createdUser.id }, CONFIG_SECRET, {
-    expiresIn: '7d' // CHANGE THIS (refresh tokens?)
-  });
-
   res.status(200).send({
-    message: 'User created successfully',
-    accessToken: token,
+    message: 'User found',
+    user: userInfo
   });
 };
 
@@ -64,6 +98,7 @@ const getAllUsers = async (req, res) => {
 };
 
 module.exports = {
-  createUser,
+  createAccount,
   getAllUsers,
+  getUserById,
 };
