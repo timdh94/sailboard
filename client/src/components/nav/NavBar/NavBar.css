@@ -1,0 +1,42 @@
+.top-navbar-container {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+                                                                               
+.navbar-list {
+  font-size: 1.3rem;
+  list-style-type: none;
+  color: #61AFEF;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #282C34;
+  width: 100%;
+}
+
+.top-nav-list {
+  float: left;
+  display: block;
+  text-align: center;
+  padding: 1rem 1.3rem;
+  text-decoration: none;
+  transition: all .2s ease-in;
+  border-radius: 0.2rem;
+  color: #61AFEF;
+}
+
+.active {
+  color: #333E52; 
+  background-color: #69914C ;
+}
+
+.top-nav-list:hover {
+  color: #98C379;
+  background-color: #333E52;
+  cursor: pointer;
+}
+
+.top-nav-list-right {
+  float: right;
+}
