@@ -19,8 +19,7 @@ const LoginForm = () => {
   const checkLogin = async (e) => {
     e.preventDefault();
     const res = await UserService.login(loginForm);
-    if (res.message) setServerRes(res.message);
-    console.log(res);
+    if (res && res.message) setServerRes(res.message);
   };
   
   const handleChange = (e) => {
@@ -34,7 +33,7 @@ const LoginForm = () => {
   return (
     <div className='login-form-container'>
       <form onSubmit={checkLogin} className='login-form'>
-        <label htmlFor='userNameInput'>username or email
+        <label htmlFor='userNameInput'>username or email</label>
           <input
             type='text'
             name='nameOrEmail'
@@ -44,8 +43,7 @@ const LoginForm = () => {
             onChange={handleChange}
             spellCheck='false'
           />
-        </label>
-        <label htmlFor='userPassword'>password
+        <label htmlFor='userPassword'>password</label>
           <input
             type='password'
             name='password'
@@ -54,7 +52,7 @@ const LoginForm = () => {
             onChange={handleChange}
             spellCheck='false'
           />
-        </label>
+        {serverRes}
         <input
           type='submit'
           name='login'
@@ -62,7 +60,9 @@ const LoginForm = () => {
           value='login'
         />
       </form>
-      {serverRes}
+      <Link to={'/createaccount'} className='create-account-link'>
+        No account? Create one here
+      </Link>
     </div>
   );
 };

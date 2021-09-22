@@ -16,10 +16,10 @@ const NavBar = () => {
           my account
         </Link>
         <Link
-          to={'/'}
+          to={'/login'}
           className='top-nav-list top-nav-list-right'
         >
-          logout
+          login
         </Link>
       </ul>
     </div>
