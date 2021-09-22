@@ -2,13 +2,14 @@ import { useState } from 'react';
 import './Login.css';
 import { Link, useHistory } from 'react-router-dom';
 import UserService from '../../services/LoginService';
+import { connect } from 'react-redux';
 
 const formInitialState = {
   nameOrEmail: '',
   password: '',
 };
 
-const LoginForm = () => {
+const LoginForm = ({ isAuthenticated, userInfo, setIsAuthenticated }) => {
   const history = useHistory();
   const [loginForm, setLoginForm] = useState(formInitialState);
   const [serverRes, setServerRes] = useState('');
@@ -20,6 +21,12 @@ const LoginForm = () => {
     e.preventDefault();
     const res = await UserService.login(loginForm);
     if (res && res.message) setServerRes(res.message);
+    setLoginForm(formInitialState);
+    if (res.accessToken) {
+      localStorage.setItem('accessToken', res.accessToken);
+      setIsAuthenticated(true);
+      //history.push('/account');
+    }
   };
   
   const handleChange = (e) => {
@@ -47,7 +54,7 @@ const LoginForm = () => {
           <input
             type='password'
             name='password'
-            value={loginForm.Password}
+            value={loginForm.password}
             required={true}
             onChange={handleChange}
             spellCheck='false'
@@ -67,4 +74,17 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.isAuthenticated,
+    userInfo: state.userInfo,
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setIsAuthenticated: (status) => dispatch({type: 'SET_AUTH', status }),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
