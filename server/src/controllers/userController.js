@@ -41,6 +41,15 @@ const createUser = async (req, res) => {
     res.status(500).send('Error creating password');
     return;
   }
+  
+  const token = jwt.sign({ uid: createdUser.id }, CONFIG_SECRET, {
+    expiresIn: '7d' // CHANGE THIS (refresh tokens?)
+  });
+
+  res.status(200).send({
+    message: 'User created successfully',
+    accessToken: token,
+  });
 };
 
 const getAllUsers = async (req, res) => {
