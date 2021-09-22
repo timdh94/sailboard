@@ -23,7 +23,6 @@ const LoginForm = ({ setIsAuthenticated }) => {
     if (res && res.message) setServerRes(res.message);
     setLoginForm(formInitialState);
     if (res.accessToken) {
-      console.log(res);
       localStorage.setItem('accessToken', res.accessToken);
       setIsAuthenticated(true);
       history.push('/account');
