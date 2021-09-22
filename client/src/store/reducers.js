@@ -1,15 +1,27 @@
 import { combineReducers } from "redux";
 
-const initialSignedIn = false;
+const initialIsAuthenticated = false;
+const intialUserInfo = {};
 
-const signIn = (state = initialSignedIn, action) => {
+const isAuthenticated = (state = initialIsAuthenticated, action) => {
   switch(action.type) {
+    case 'SET_AUTH': {
+      state = action.status;
+      return state;
+    }
     default: return state;
-  }
+  };
 };
 
+const setUserInfo = (state = intialUserInfo, action) => {
+  switch(action.type) {
+    default: return state;
+  };
+}
+
 const reducers = combineReducers({
-  signIn
+  isAuthenticated,
+  setUserInfo,
 });
 
 export default reducers;
