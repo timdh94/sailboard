@@ -9,7 +9,7 @@ const formInitialState = {
   password: '',
 };
 
-const LoginForm = ({ isAuthenticated, userInfo, setIsAuthenticated }) => {
+const LoginForm = ({ setIsAuthenticated }) => {
   const history = useHistory();
   const [loginForm, setLoginForm] = useState(formInitialState);
   const [serverRes, setServerRes] = useState('');
@@ -23,9 +23,10 @@ const LoginForm = ({ isAuthenticated, userInfo, setIsAuthenticated }) => {
     if (res && res.message) setServerRes(res.message);
     setLoginForm(formInitialState);
     if (res.accessToken) {
+      console.log(res);
       localStorage.setItem('accessToken', res.accessToken);
       setIsAuthenticated(true);
-      //history.push('/account');
+      history.push('/account');
     }
   };
   
@@ -77,7 +78,6 @@ const LoginForm = ({ isAuthenticated, userInfo, setIsAuthenticated }) => {
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.isAuthenticated,
-    userInfo: state.userInfo,
   }
 };
 
