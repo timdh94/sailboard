@@ -14,9 +14,6 @@ const LoginForm = ({ setIsAuthenticated }) => {
   const [loginForm, setLoginForm] = useState(formInitialState);
   const [serverRes, setServerRes] = useState('');
   
-  // TODO: use effect to check if user is already logged in from 
-  // store info
-  
   const checkLogin = async (e) => {
     e.preventDefault();
     const res = await UserService.login(loginForm);
