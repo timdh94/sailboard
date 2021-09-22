@@ -1,5 +1,6 @@
 import AccountService from '../../../../services/AccountService';
 import { connect } from 'react-redux';
+import AccountDetails from '../AccountDetails/AccountDetails';
 const { useEffect } = require('react');
 // import account details component
 
@@ -17,9 +18,7 @@ const Account = ({ userInfo, setUserInfo }) => {
   
   return (
     <div>
-      {userInfo.userName}
-      {userInfo.firstName}
-      {userInfo.lastName}
+      <AccountDetails userInfo={userInfo}/>
     </div>
   );
 };
