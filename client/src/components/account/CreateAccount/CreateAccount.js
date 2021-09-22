@@ -1,6 +1,7 @@
 import './CreateAccount.css';
 import { useState } from 'react';
 import AccountService from '../../../services/AccountService';
+import { connect } from 'react-redux';
 const { useHistory } = require('react-router-dom');
 
 const formDefault = {
@@ -15,7 +16,7 @@ const formDefault = {
 // TODO: ADD CONFIRM PASSWORD FIELD AND PASSWORD STRENGTH INDICATOR
 // TODO: ADD COUNTRY DROP DROP SELECTOR
 
-const CreateAccount = () => {
+const CreateAccount = ({ setIsAuthenticated }) => {
   const [form, setForm] = useState(formDefault);
   const [serverRes, setServerRes] = useState('');
   const history = useHistory();
@@ -35,6 +36,7 @@ const CreateAccount = () => {
     setForm(formDefault);
     if (res.accessToken) {
       localStorage.setItem('accessToken', res.accessToken);
+      setIsAuthenticated();
       history.push('/account');
     }
   };
@@ -125,4 +127,10 @@ const CreateAccount = () => {
   )
 };
 
-export default CreateAccount;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setIsAuthenticated: () => dispatch({ type: 'SET_AUTH', status: true })
+  };
+};
+
+export default connect(null, mapDispatchToProps)(CreateAccount);
