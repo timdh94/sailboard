@@ -1,15 +1,16 @@
 import './CreateAccount.css';
 import { useState } from 'react';
+import AccountService from '../../../services/AccountService';
+const { useHistory } = require('react-router-dom');
 
 const formDefault = {
   firstName: '',
-  lastname: '',
+  lastName: '',
   userName: '',
   email: '',
   password: '',
   country: ''
 };
-
 
 // TODO: ADD CONFIRM PASSWORD FIELD AND PASSWORD STRENGTH INDICATOR
 // TODO: ADD COUNTRY DROP DROP SELECTOR
@@ -17,6 +18,7 @@ const formDefault = {
 const CreateAccount = () => {
   const [form, setForm] = useState(formDefault);
   const [serverRes, setServerRes] = useState('');
+  const history = useHistory();
   
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,9 +28,15 @@ const CreateAccount = () => {
     }));
   };
   
-  const submitAccount = (e) => {
+  const submitAccount = async (e) => {
     e.preventDefault();
-    return;
+    const res = await AccountService.createAccount(form);
+    if (res && res.message) setServerRes(res.message);
+    setForm(formDefault);
+    if (res.accessToken) {
+      localStorage.setItem('accessToken', res.accessToken);
+      history.push('/account');
+    }
   };
 
   return (
