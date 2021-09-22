@@ -20,7 +20,7 @@ const db = {};
 const files = fs.readdirSync(__dirname);
 
 for (const file of files) {
-  if (file !== 'models.js') {
+  if (file !== 'index.js') {
     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
     db[model.name] = model;
   }
