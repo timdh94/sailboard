@@ -13,15 +13,21 @@ const isAuthenticated = (state = initialIsAuthenticated, action) => {
   };
 };
 
-const setUserInfo = (state = intialUserInfo, action) => {
+const userInfo = (state = intialUserInfo, action) => {
   switch(action.type) {
+    case 'SET_INFO': {
+      return {
+        ...state,
+        ...action.userInfo
+      }
+    }
     default: return state;
   };
 }
 
 const reducers = combineReducers({
   isAuthenticated,
-  setUserInfo,
+  userInfo,
 });
 
 export default reducers;
