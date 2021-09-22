@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(50),
       allowNull: false
     },
-    region: {
+    country: {
       type: DataTypes.STRING(50),
       allowNull: false,
       defaultValue: 'None specified',
