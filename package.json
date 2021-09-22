@@ -1,0 +1,19 @@
+{
+  "name": "sailboard",
+  "version": "1.0.0",
+  "description": "Codeworks solo-project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timdh94/sailboard.git"
+  },
+  "author": "Timothy Hunter",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/timdh94/sailboard/issues"
+  },
+  "homepage": "https://github.com/timdh94/sailboard#readme"
+}
