@@ -10,7 +10,7 @@ const Account = ({ userInfo, setUserInfo, isAuthenticated }) => {
   
   useEffect(() => {
     if (!isAuthenticated) {
-      history.push('/');
+      history.push('/login');
       return;
     }
     const accessToken = localStorage.getItem('accessToken');
