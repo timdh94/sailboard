@@ -3,10 +3,16 @@ import AccountService from '../../../../services/AccountService';
 import { connect } from 'react-redux';
 import AccountDetails from '../AccountDetails/AccountDetails';
 const { useEffect } = require('react');
+const { useHistory } = require('react-router-dom');
 
-const Account = ({ userInfo, setUserInfo }) => {
+const Account = ({ userInfo, setUserInfo, isAuthenticated }) => {
+  const history = useHistory();
   
   useEffect(() => {
+    if (!isAuthenticated) {
+      history.push('/');
+      return;
+    }
     const accessToken = localStorage.getItem('accessToken');
     (async () => {
       const res = await AccountService.getUserInfo(accessToken);
@@ -14,7 +20,7 @@ const Account = ({ userInfo, setUserInfo }) => {
         setUserInfo(res.user);
       }
     })();
-  }, [setUserInfo]);
+  }, [setUserInfo, isAuthenticated, history]);
   
   return (
     <div className='account-container'>
@@ -25,8 +31,9 @@ const Account = ({ userInfo, setUserInfo }) => {
 
 const mapStateToProps = (state) => {
   return {
+    isAuthenticated: state.isAuthenticated,
     userInfo: state.userInfo
-  }
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
