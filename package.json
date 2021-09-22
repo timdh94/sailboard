@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/timdh94/sailboard/issues"
   },
-  "homepage": "https://github.com/timdh94/sailboard#readme"
+  "homepage": "https://github.com/timdh94/sailboard#readme",
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.6.1"
+  }
 }
