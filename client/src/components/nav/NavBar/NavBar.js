@@ -1,9 +1,10 @@
 import './NavBar.css';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // TODO: redirect to home on logout
-const NavBar = ({ isAuthenticated, setUserInfo, setIsAuthenticated }) => {
+const NavBar = () => {
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   return (
     <div className="top-navbar-container">
       <div className="top-navbar"></div>
@@ -21,11 +22,6 @@ const NavBar = ({ isAuthenticated, setUserInfo, setIsAuthenticated }) => {
         : <></>}
         {isAuthenticated?
           <div 
-            onClick={() => {
-              setUserInfo();
-              setIsAuthenticated();
-              localStorage.setItem('accessToken', null);
-            }}
             className='top-nav-list top-nav-list-right'
           >logout</div>
         :
@@ -37,18 +33,4 @@ const NavBar = ({ isAuthenticated, setUserInfo, setIsAuthenticated }) => {
     </div>
   );
 };
-
-const mapStateToProps = (state) => {
-  return {
-    isAuthenticated: state.isAuthenticated
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setUserInfo: () => dispatch({ type: 'SET_INFO', userInfo: null}),
-    setIsAuthenticated: () => dispatch({ type: 'SET_AUTH', status: false })
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+export default NavBar;
