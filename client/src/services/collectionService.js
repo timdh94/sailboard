@@ -31,5 +31,19 @@ CollectionService.addKeyboard = async (keyboard, accessToken) => {
     .catch(err => console.log(err));
 };
 
+CollectionService.deleteKeyboard = async (keyboardId, accessToken) => {
+  return fetch(`${url}/${keyboardId}`, {
+    method: 'DELETE',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`
+    },
+    mode: 'cors',
+  })
+    .then(res => res.json())
+    .catch(err => console.log(err));
+};
+
 
 module.exports = CollectionService;
