@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
       foreignKey: { allowNull: false }
     });
+    db.Keyboard.hasOne(db.Listing);
   };
   return Keyboard;
 };
