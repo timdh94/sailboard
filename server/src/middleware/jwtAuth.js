@@ -3,7 +3,6 @@ const { ACCESS_TOKEN_SECRET } = require('../config');
 
 const authMiddleware = async (req, res, next) => {
   const authHeaders = req.headers['authorization'];
-  console.log(authHeaders);
   if (!authHeaders) res.sendStatus(403);
   const userJwt = authHeaders.split(' ')[1];
 
