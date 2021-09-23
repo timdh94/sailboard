@@ -1,0 +1,12 @@
+
+.keyboard-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-keyboard-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
