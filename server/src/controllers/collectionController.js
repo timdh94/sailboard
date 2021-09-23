@@ -10,7 +10,6 @@ const getUserCollection = async (req, res) => {
     }
     
     const id = req.userId;
-    
     const userCollection = await db.Keyboard.findAll({
       where: {
         UserId: id
@@ -59,10 +58,39 @@ const addKeyboardToCollection = async (req, res) => {
       message: 'Error adding keyboard to collection'
     });
   }
+};
+
+// TODO: ensure keyboard being deleted belongs to the authenticated user
+const deleteKeyboard = async (req, res) => {
+  try {
+    const UserId = req.userId;
+    const id = req.params.id;
+    if (!UserId || !id) {
+      res.status(403).send({
+        message: 'Invalid credentials'
+      });
+    }
+    await db.Keyboard.destroy({
+      where: {
+        id,
+        UserId
+      }
+    });
+    
+    res.status(200).send({
+      message: 'Keyboard deleted'
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({
+      message: 'Error deleting keyboard'
+    });
+  }
 }
 
 
 module.exports = {
   getUserCollection,
   addKeyboardToCollection,
+  deleteKeyboard,
 };
