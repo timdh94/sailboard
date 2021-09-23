@@ -1,11 +1,49 @@
 import './Keyboard.css';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import CollectionService from '../../../services/collectionService';
+import ListingService from '../../../services/listingService';
+
+// TODO: check for keyboards that are already lists for sale --->
+// link to listing instead of list for sale button
+
 const Keyboard = ({ board }) => {
+  const dispatch = useDispatch();
+  const [isListing, setIsListing] = useState(false);
+  const [buyItNow, setBuyItNow] = useState(0);
+  const [serverRes, setServerRes] = useState('');
+
   if (!board) return (
     <div>Error rendering board</div>
   );
   
-  // todo: write delete function
-  // todo: add - list item - functionality
+  const deleteBoard = async (e) => {
+    const { id } = e.target
+    const accessToken = localStorage.getItem('accessToken');
+    const res = await CollectionService.deleteKeyboard(id, accessToken);
+    dispatch({
+      type: 'DELETE_BOARD',
+      payload: parseInt(id)
+    });
+  };
+  
+  const updatePrice = (e) => {
+    setBuyItNow(e.target.value);
+  };
+  
+  const createListing = async (e) => {
+    e.preventDefault();
+    const accessToken = localStorage.getItem('accessToken');
+    const res = await  ListingService.createListing({
+      buyItNowPrice: buyItNow,
+      boardId: board.id
+    }, accessToken);
+    if (res.newListing) {
+      setIsListing(false);
+      return;
+    }
+    setServerRes(res.message);
+  };
   
   return (
     <div className='board-container' key={board.id}>
@@ -25,9 +63,44 @@ const Keyboard = ({ board }) => {
           type='button'
           id={board.id.toString()}
           className='delete-board'
-          onClick={() => {}}
+          onClick={deleteBoard}
           value='delete'
         />
+        {isListing ? 
+          <div className='listing-form'>
+            <form className='create-listing-form' onSubmit={createListing}>
+              <label htmlFor='buyItNowPrice'>buy it now price (0 for no buy it now):</label>
+              <input
+                type='number'
+                name='buyItNowPrice'
+                id='buyItNowPrice'
+                value={buyItNow}
+                onChange={updatePrice}
+              />
+              <input
+                type='submit'
+                name='postListing'
+                id='postListingButton'
+                value='create listing'
+              />
+              <input
+                type='button'
+                name='cancelListing'
+                value='cancel'
+                onClick={() => setIsListing(false)}
+              />
+            </form>
+            {serverRes}
+          </div>
+        :
+          <input
+            type='button'
+            id={board.id.toString()}
+            className='sell-board'
+            onClick={() => {setIsListing(true)}}
+            value='list for sale'
+          />
+        }
       </div>
     </div>
   );
