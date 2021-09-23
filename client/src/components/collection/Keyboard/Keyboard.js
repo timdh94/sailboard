@@ -1,3 +1,4 @@
+import './Keyboard.css';
 const Keyboard = ({ board }) => {
   if (!board) return (
     <div>Error rendering board</div>
