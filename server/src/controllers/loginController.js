@@ -42,8 +42,8 @@ const authenticate = async (req, res) => {
       res.status(200).send({
         message: 'Logged in',
         accessToken: token,
+        user: user
       });
-      // ADD JWT SIGN LOGIC HERE
     });
 };
 
