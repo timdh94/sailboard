@@ -1,33 +1,49 @@
 import { combineReducers } from "redux";
 
-const initialIsAuthenticated = false;
-const intialUserInfo = {};
-
-const isAuthenticated = (state = initialIsAuthenticated, action) => {
-  switch(action.type) {
-    case 'SET_AUTH': {
-      state = action.status;
-      return state;
-    }
-    default: return state;
-  };
+const initialState = {
+  isAuthenticated: false,
+  userInfo: null
 };
 
-const userInfo = (state = intialUserInfo, action) => {
-  switch(action.type) {
-    case 'SET_INFO': {
+const auth = (state = initialState, action) => {
+  switch (action.type) {
+    case 'LOGIN':
       return {
         ...state,
-        ...action.userInfo
+        isAuthenticated: true,
+        userInfo: action.payload
       }
-    }
+    case 'LOGOUT':
+      return {
+        ...state,
+        isAuthenticated: false,
+        userInfo: null
+      }
     default: return state;
-  };
+  }
+};
+
+const collection = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_BOARDS': 
+    return [
+      ...state,
+      ...action.payload
+    ];
+    case 'ADD_BOARD': 
+    return [
+      ...state,
+      action.payload
+    ];
+    case 'DELETE_BOARD':
+      return state.filter(({ id }) => id !== action.payload)
+    default: return state;
+  }
 }
 
 const reducers = combineReducers({
-  isAuthenticated,
-  userInfo,
+  auth,
+  collection
 });
 
 export default reducers;
