@@ -1,26 +1,31 @@
 import './Account.css';
 import AccountService from '../../../../services/AccountService';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import AccountDetails from '../AccountDetails/AccountDetails';
 const { useEffect } = require('react');
 const { useHistory } = require('react-router-dom');
 
-const Account = ({ userInfo, setUserInfo, isAuthenticated }) => {
+const Account = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const userInfo = useSelector(state => state.auth.userInfo);
   
   useEffect(() => {
     if (!isAuthenticated) {
       history.push('/login');
       return;
     }
+    if (userInfo) return;
     const accessToken = localStorage.getItem('accessToken');
     (async () => {
+      console.log('Account fetching details');
       const res = await AccountService.getUserInfo(accessToken);
       if (res.user) {
-        setUserInfo(res.user);
+        dispatch(({ type: 'LOGIN', payload: res.user }));
       }
     })();
-  }, [setUserInfo, isAuthenticated, history]);
+  }, [isAuthenticated, userInfo, history, dispatch]);
   
   return (
     <div className='account-container'>
@@ -29,17 +34,4 @@ const Account = ({ userInfo, setUserInfo, isAuthenticated }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isAuthenticated: state.isAuthenticated,
-    userInfo: state.userInfo
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setUserInfo: (userInfo) => dispatch({type: 'SET_INFO', userInfo})
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Account);
+export default Account;
