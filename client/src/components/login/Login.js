@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './Login.css';
 import { Link, useHistory } from 'react-router-dom';
 import UserService from '../../services/LoginService';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const formInitialState = {
   nameOrEmail: '',
@@ -11,6 +11,7 @@ const formInitialState = {
 
 const LoginForm = ({ setIsAuthenticated }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [loginForm, setLoginForm] = useState(formInitialState);
   const [serverRes, setServerRes] = useState('');
   
@@ -21,7 +22,7 @@ const LoginForm = ({ setIsAuthenticated }) => {
     setLoginForm(formInitialState);
     if (res.accessToken) {
       localStorage.setItem('accessToken', res.accessToken);
-      setIsAuthenticated(true);
+      dispatch({ type: 'LOGIN', payload: res.user });
       history.push('/account');
     }
   };
@@ -71,16 +72,4 @@ const LoginForm = ({ setIsAuthenticated }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isAuthenticated: state.isAuthenticated,
-  }
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setIsAuthenticated: (status) => dispatch({type: 'SET_AUTH', status }),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default LoginForm;
