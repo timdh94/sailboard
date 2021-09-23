@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import AddKeyboard from '../AddItem/AddKeyboard';
 import Keyboard from '../Keyboard/Keyboard';
+import CollectionService from '../../../services/collectionService';
 
 const Collection = () => {
   const [isAdding, setIsAdding] = useState(false);
@@ -9,11 +10,14 @@ const Collection = () => {
   const collection = useSelector(state => state.collection);
   
   useEffect(() => {
-    if (collection.length === 0 || !collection) {
-      // send collection get request to server
-    }
-
-  }, [collection]);
+    (async () => {
+      if (collection.length > 0) return;
+      const accessToken = localStorage.getItem('accessToken');
+      const res = await CollectionService.getCollection(accessToken);
+      dispatch({ type: 'SET_BOARDS', payload: res.userCollection });
+      console.log(res);
+    })();
+  }, [dispatch, collection.length]);
 
   return (
     <div>
