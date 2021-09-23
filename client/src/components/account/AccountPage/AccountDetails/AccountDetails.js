@@ -1,6 +1,7 @@
 import './AccountDetails.css';
 
 const AccountDetails = ({ userInfo }) => {
+  if (!userInfo) return (<div>error loading user info</div>);
   return (
     <div className='user-details-container'>
       <div className='profile-picture'>
