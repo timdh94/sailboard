@@ -1,5 +1,7 @@
 import './AddKeyboard.css';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import CollectionService from '../../../services/collectionService';
 
 const formDefault = {
   boardName: '',
@@ -13,6 +15,7 @@ const AddKeyboard = () => {
   const [form, setForm] = useState(formDefault);
   const [file, setFile] = useState()
   const [serverRes, setServerRes] = useState('');
+  const dispatch = useDispatch();
   
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,8 +30,14 @@ const AddKeyboard = () => {
     console.log(file);
   };
   
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
+    const accessToken = localStorage.getItem('accessToken')
+    const res = await CollectionService.addKeyboard(form, accessToken);
+    if (res.board) {
+      dispatch({ type: 'ADD_BOARD', payload: res.board });
+    }
+    console.log(res);
     console.log('form submitted');
   };
 
