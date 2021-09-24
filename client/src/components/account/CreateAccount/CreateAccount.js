@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 const { useHistory } = require('react-router-dom');
 
 const formDefault = {
-  firstName: '',
-  lastName: '',
   userName: '',
   email: '',
   password: '',
@@ -46,42 +44,6 @@ const CreateAccount = ({ setIsAuthenticated }) => {
       <h1 className='form-title'>create account</h1>
       {serverRes}
       <form className='create-account-form' onSubmit={submitAccount}>
-        <label htmlFor='firstNameInput'>first name</label>
-        <input
-          type='text'
-          name='firstName'
-          id='firstNameInput'
-          value={form.firstName}
-          required={true}
-          autoComplete='off'
-          onChange={handleChange}
-          spellCheck='false'
-          maxLength={20}
-        />
-        <label htmlFor='lastNameInput'>last name</label>
-        <input
-          type='text'
-          name='lastName'
-          id='lastNameInput'
-          value={form.lastName}
-          required={true}
-          autoComplete='off'
-          onChange={handleChange}
-          spellCheck='false'
-          maxLength={20}
-        />
-        <label htmlFor='countryInput'>country</label>
-        <input
-          type='text'
-          name='country'
-          id='countryInput'
-          value={form.country}
-          required={true}
-          autoComplete='off'
-          onChange={handleChange}
-          spellCheck='false'
-          maxLength={30}
-        />
         <label htmlFor='userNameInput'>username</label>
         <input
           type='text'
@@ -105,6 +67,18 @@ const CreateAccount = ({ setIsAuthenticated }) => {
           autoComplete='off'
           onChange={handleChange}
           spellCheck='false'
+        />
+        <label htmlFor='countryInput'>country</label>
+        <input
+          type='text'
+          name='country'
+          id='countryInput'
+          value={form.country}
+          required={true}
+          autoComplete='off'
+          onChange={handleChange}
+          spellCheck='false'
+          maxLength={30}
         />
         <label htmlFor='userPasswordInput'>password</label>
         <input

@@ -18,14 +18,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(1000),
       allowNull: true,
     },
-    firstName: {
-      type: DataTypes.STRING(50),
-      allowNull: false
-    },
-    lastName: {
-      type: DataTypes.STRING(50),
-      allowNull: false
-    },
     country: {
       type: DataTypes.STRING(50),
       allowNull: false,
@@ -35,8 +27,10 @@ module.exports = (sequelize, DataTypes) => {
   
   User.associate = db => {
     db.User.hasMany(db.Keyboard);
-    //db.User.hasMany(db.Keycap);
     db.User.hasOne(db.Password);
+    db.User.hasMany(db.Listing);
+    db.User.hasMany(db.Bid);
+    //db.User.hasMany(db.Keycap);
   };
   return User;
 };
