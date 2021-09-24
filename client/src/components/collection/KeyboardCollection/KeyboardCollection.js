@@ -14,17 +14,15 @@ const Collection = () => {
   const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
-    console.log(isAuthenticated);
-    if (!isAuthenticated) {
-      history.push('/login');
-      return;
-    }
+
     (async () => {
-      if (collection.length > 0) return;
       const accessToken = localStorage.getItem('accessToken');
+      if (!accessToken) {
+        history.push('/login');
+        return;
+      }
       const res = await CollectionService.getCollection(accessToken);
       dispatch({ type: 'SET_BOARDS', payload: res.userCollection });
-      console.log(res);
     })();
     setIsLoading(false);
   }, [dispatch, collection.length, history, isAuthenticated]);
