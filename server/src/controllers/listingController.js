@@ -1,5 +1,4 @@
 const db = require('../models/index');
-const { use } = require('../router');
 
 const getAllListings = async (req, res) => {
   try {
@@ -21,6 +20,39 @@ const getAllListings = async (req, res) => {
   }
 };
 
+const getUserListings = async (req, res) => {
+  try {
+    const userId = req.userId;
+    if (!userId) {
+      res.status(403).send({
+        message: 'Invalid credentials'
+      });
+      return;
+    }
+    
+    const userListings = await db.Listing.findAll({
+      include: [{
+        model: db.Keyboard
+      }],
+      where: {
+        UserId: userId 
+      }
+    });
+
+
+    res.status(200).send({
+      message: 'User listings retreived',
+      userListings
+    });
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({
+      message: 'Error retrieving user\'s listings' 
+    });
+  }
+};
+
 const createListing = async (req, res) => {
   try {
     if (!req.userId) {
@@ -36,6 +68,7 @@ const createListing = async (req, res) => {
       }
     });
     if (!user) {
+      // TODO: error res here
       console.log('no user found with that id')
       return;
     }
@@ -83,5 +116,6 @@ const createListing = async (req, res) => {
 
 module.exports = {
   getAllListings,
-  createListing
+  createListing,
+  getUserListings,
 };
