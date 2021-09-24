@@ -1,0 +1,33 @@
+.listing-details-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+}
+
+.picture-details-container {
+  margin: 1rem;
+  display: flex;
+  flex-direction: row;
+  border: 2px solid green;
+}
+
+.picture-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  min-height: 300px;
+}
+
+.overview-container {
+  font-size: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.board-description {
+  margin-left: 1rem;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
