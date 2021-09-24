@@ -15,5 +15,7 @@ router.post('/collection', authMiddleware, collectionController.addKeyboardToCol
 router.delete('/collection/:id', authMiddleware, collectionController.deleteKeyboard);
 
 router.post('/listings', authMiddleware, listingController.createListing);
+router.get('/listings/userListings', authMiddleware, listingController.getUserListings);
+router.get('/listings', listingController.getAllListings);
 
 module.exports = router;
