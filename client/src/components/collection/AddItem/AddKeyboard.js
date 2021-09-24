@@ -36,9 +36,10 @@ const AddKeyboard = () => {
     const res = await CollectionService.addKeyboard(form, accessToken);
     if (res.board) {
       dispatch({ type: 'ADD_BOARD', payload: res.board });
+      setForm(formDefault);
+      return;
     }
-    console.log(res);
-    console.log('form submitted');
+    setServerRes(res.message);
   };
 
   return (
