@@ -1,15 +1,24 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import AddKeyboard from '../AddItem/AddKeyboard';
 import Keyboard from '../Keyboard/Keyboard';
 import CollectionService from '../../../services/collectionService';
 
 const Collection = () => {
-  const [isAdding, setIsAdding] = useState(false);
   const dispatch = useDispatch();
+  const history = useHistory();
   const collection = useSelector(state => state.collection);
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const [isAdding, setIsAdding] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
+    console.log(isAuthenticated);
+    if (!isAuthenticated) {
+      history.push('/login');
+      return;
+    }
     (async () => {
       if (collection.length > 0) return;
       const accessToken = localStorage.getItem('accessToken');
@@ -17,8 +26,10 @@ const Collection = () => {
       dispatch({ type: 'SET_BOARDS', payload: res.userCollection });
       console.log(res);
     })();
-  }, [dispatch, collection.length]);
+    setIsLoading(false);
+  }, [dispatch, collection.length, history, isAuthenticated]);
 
+  if (isLoading) return (<></>);
   return (
     <div>
       <h1>your keyboards</h1>
