@@ -26,24 +26,43 @@ const auth = (state = initialState, action) => {
 const collection = (state = [], action) => {
   switch (action.type) {
     case 'SET_BOARDS': 
-    return [
-      ...state,
-      ...action.payload
-    ];
+      return [
+        ...action.payload
+      ];
     case 'ADD_BOARD': 
-    return [
-      ...state,
-      action.payload
-    ];
+      return [
+        ...state,
+        action.payload
+      ];
     case 'DELETE_BOARD':
       return state.filter(({ id }) => id !== action.payload)
     default: return state;
   }
 }
 
+const listings = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_USER_LISTINGS': 
+      return [
+        ...action.payload
+      ];
+    case 'ADD_USER_LISTING':
+      return [
+        action.payload,
+        ...state
+      ];
+    case 'REMOVE_USER_LISTING':
+      return [
+        state.filter(({ id }) => id !== action.payload)
+      ];
+    default: return state;
+  }
+};
+
 const reducers = combineReducers({
   auth,
-  collection
+  collection,
+  listings,
 });
 
 export default reducers;
