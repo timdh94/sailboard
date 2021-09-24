@@ -11,7 +11,6 @@ const BrowseAll = () => {
     (async () => {
       const res = await ListingService.getAllListings();
       if (res.listings) {
-        console.log(res.listings);
         setListings(res.listings);
       }
       setIsLoading(false);

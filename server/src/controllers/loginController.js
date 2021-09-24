@@ -7,7 +7,7 @@ const { ACCESS_TOKEN_SECRET } = require('../config');
 const authenticate = async (req, res) => {
   const loginForm = req.body;
   if (!loginForm.nameOrEmail || !loginForm.password) {
-    res.status(400).send('Invalid form info');
+    res.status(403).send('Invalid form info');
     return;
   }
   
@@ -24,13 +24,13 @@ const authenticate = async (req, res) => {
   });
   
   if (!user || !user.Password) {
-    res.status(400).send({ message: 'Invalid username or password' });
+    res.status(403).send({ message: 'Invalid username or password' });
   }
   
   await bcrypt.compare(loginForm.password, user.Password.dataValues.password)
     .then(async (success) => {
       if (!success) {
-        res.status(300).send({
+        res.status(403).send({
           message: 'Invalid username or password'
         });
         return;

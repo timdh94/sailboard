@@ -9,7 +9,7 @@ const createAccount = async (req, res) => {
   try {
     const newUser = req.body;
     console.log(newUser);
-    if (!newUser.userName || !newUser.email || !newUser.password || !newUser.firstName || !newUser.lastName || !newUser.country) {
+    if (!newUser.userName || !newUser.email || !newUser.password || !newUser.country) {
       res.status(400).send('Missing form fields');
       return;
     }
