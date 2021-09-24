@@ -16,6 +16,20 @@ ListingService.createListing = async (newListing, accessToken) => {
     .catch(err => console.log(err));
 };
 
+ListingService.getUserListings = async (accessToken) => {
+  return fetch(url + 'userListings', {
+    method: 'GET',
+    credentials: 'include',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`
+    }
+  })
+    .then(res => res.json())
+    .catch(err => console.log(err));
+};
+
 ListingService.getAllListings = async () => {
   return fetch(url, {
     method: 'GET',
