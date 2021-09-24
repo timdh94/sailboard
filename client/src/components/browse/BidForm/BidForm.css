@@ -1,0 +1,20 @@
+.bid-form-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.bid-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.bid-form-cancel-button {
+  width: 100px;
+  height: 25px;
+}
+
+.bid-form-submit-button {
+  width: 100px;
+  height: 25px;
+}
