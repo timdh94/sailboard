@@ -10,19 +10,24 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(50),
       allowNull: false
     },
-    counterOffer: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    sellerId: {
+    amount: {
       type: DataTypes.INTEGER,
       allowNull: false
-    }
+    },
+    message: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: 'No message'
+    },
   });
   Bid.associate = db => {
     db.Bid.belongsTo(db.User, {
       onDelete: 'CASCADE',
       foreignKey: { allowNull: false }
+    });
+    db.Bid.belongsTo(db.Listing, {
+      onDelete: 'CASCADE',
+      foreightKey: { allowNull: false }
     });
   }
   return Bid;

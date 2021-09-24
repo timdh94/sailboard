@@ -1,16 +1,23 @@
 import './KeyboardListing.css';
+import { useHistory } from 'react-router-dom';
 
 const KeyboardListing = ({ listing }) => {
+  const history = useHistory();
+  
+  const goToListing = () => {
+    history.push(`/listing/${listing.id}`);
+  };
+
   return (
-    <div className='keyboard-listing-container' onClick={() => (console.log(`clicked ${listing.id}`))}>
+    <div className='keyboard-listing-container' onClick={goToListing}>
       <div className='listing-picture'>
         picture here
       </div>
       <div className='listing-details'>
         <p>Board: {listing.Keyboard.boardName}</p>
         <p>Location: {listing.itemLocation}</p>
-        {(listing.buyItNowPrice) ? 
-          <p>Buy It Now: ${listing.buyItNowPrice}</p>
+        {(listing.minBid) ? 
+          <p>Minimum bid: ${listing.minBid}</p>
         : <></>}
       </div>
       <div className='listing-description'>
