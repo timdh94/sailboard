@@ -29,5 +29,5 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: { allowNull: false }
     });
   }
-  return Listing
+  return Listing;
 };
