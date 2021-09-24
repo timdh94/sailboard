@@ -34,7 +34,6 @@ const createAccount = async (req, res) => {
       return;
     }
     const { password, ...userWithoutPass } = newUser;
-    console.log(userWithoutPass);
   
     const createdUser = await db.User.create(userWithoutPass);
     if (!createdUser) {
