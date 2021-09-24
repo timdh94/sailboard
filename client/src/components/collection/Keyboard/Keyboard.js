@@ -10,7 +10,7 @@ import ListingService from '../../../services/listingService';
 const Keyboard = ({ board }) => {
   const dispatch = useDispatch();
   const [isListing, setIsListing] = useState(false);
-  const [buyItNow, setBuyItNow] = useState(0);
+  const [minBid, setMinBid] = useState(0);
   const [serverRes, setServerRes] = useState('');
 
   if (!board) return (
@@ -20,7 +20,8 @@ const Keyboard = ({ board }) => {
   const deleteBoard = async (e) => {
     const { id } = e.target
     const accessToken = localStorage.getItem('accessToken');
-    const res = await CollectionService.deleteKeyboard(id, accessToken);
+    await CollectionService.deleteKeyboard(id, accessToken);
+    // TODO: add res success check before deleting board
     dispatch({
       type: 'DELETE_BOARD',
       payload: parseInt(id)
@@ -28,14 +29,14 @@ const Keyboard = ({ board }) => {
   };
   
   const updatePrice = (e) => {
-    setBuyItNow(e.target.value);
+    setMinBid(e.target.value);
   };
   
   const createListing = async (e) => {
     e.preventDefault();
     const accessToken = localStorage.getItem('accessToken');
-    const res = await  ListingService.createListing({
-      buyItNowPrice: buyItNow,
+    const res = await ListingService.createListing({
+      minBid,
       boardId: board.id
     }, accessToken);
     if (res.newListing) {
@@ -69,12 +70,12 @@ const Keyboard = ({ board }) => {
         {isListing ? 
           <div className='listing-form'>
             <form className='create-listing-form' onSubmit={createListing}>
-              <label htmlFor='buyItNowPrice'>buy it now price (0 for no buy it now):</label>
+              <label htmlFor='minBidPrice'>minumum bid:</label>
               <input
                 type='number'
-                name='buyItNowPrice'
-                id='buyItNowPrice'
-                value={buyItNow}
+                name='minBidPrice'
+                id='minBidPrice'
+                value={minBid}
                 onChange={updatePrice}
               />
               <input
