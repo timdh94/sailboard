@@ -94,7 +94,7 @@ const createListing = async (req, res) => {
     }
 
     const createdListing = await db.Listing.create({
-      buyItNowPrice: newListing.buyItNowPrice,
+      minBid: newListing.minBid,
       sellerName: user.userName,
       itemLocation: user.country,
       UserId: user.id,
@@ -114,8 +114,29 @@ const createListing = async (req, res) => {
   }
 };
 
+// TODO: more error checing etc here...
+const getListingById = async (req, res) => {
+  const id = req.params.id;
+  if (!id) res.send('fuckup');
+  
+  const listing = await db.Listing.findOne({
+    include: [{
+      model: db.Keyboard 
+    }],
+    where: {
+      id
+    }
+  });
+  
+  res.status(200).send({
+    message: 'Listing retrieved',
+    listing
+  });
+};
+
 module.exports = {
   getAllListings,
   createListing,
   getUserListings,
+  getListingById,
 };
