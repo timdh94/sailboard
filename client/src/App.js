@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import NavBar from './components/nav/NavBar/NavBar';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import AccountService from './services/AccountService';
 import { useDispatch } from 'react-redux';
 import LoginForm from './components/login/Login';
@@ -11,6 +11,7 @@ import Account from './components/account/AccountPage/Account/Account';
 import Collection from './components/collection/KeyboardCollection/KeyboardCollection';
 import UserListings from './components/userListings/UserListings/UserListings';
 import BrowseAll from './components/browse/BrowseAll/BrowseAll';
+import ListingDetails from './components/browse/ListingDetails/ListingDetails';
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         <Route path='/mycollection' exact component={Collection} />
         <Route path='/mylistings' exact component={UserListings} />
         <Route path='/browse' exact component={BrowseAll} />
+        <Route path='/listing/:id' exact component={ListingDetails} />
       </div>
     </Router>
   );
