@@ -1,4 +1,4 @@
-const url = 'http://localhost:3005/listings/'
+const url = 'http://localhost:3005/listing/'
 const ListingService = {};
 
 ListingService.createListing = async (newListing, accessToken) => {
@@ -35,6 +35,16 @@ ListingService.getAllListings = async () => {
     method: 'GET',
     credentials: 'include',
     mode: 'cors'
+  })
+    .then(res => res.json())
+    .catch(err => console.log(err));
+};
+
+ListingService.getListing = async (id) => {
+  return fetch(url + id, {
+    method: 'GET',
+    credentials: 'include',
+    mode: 'cors',
   })
     .then(res => res.json())
     .catch(err => console.log(err));

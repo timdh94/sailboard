@@ -3,19 +3,25 @@ const LoginController = require('./controllers/loginController');
 const userController = require('./controllers/userController');
 const collectionController = require('./controllers/collectionController');
 const listingController = require('./controllers/listingController');
+const bidController = require('./controllers/bidController');
 const authMiddleware = require('./middleware/jwtAuth');
 
 router.post('/login', LoginController.authenticate);
 
-router.post('/users', userController.createAccount);
-router.get('/users', authMiddleware, userController.getUserById);
+router.post('/user', userController.createAccount);
+router.get('/user', authMiddleware, userController.getUserById);
 
 router.get('/collection', authMiddleware, collectionController.getUserCollection);
 router.post('/collection', authMiddleware, collectionController.addKeyboardToCollection);
 router.delete('/collection/:id', authMiddleware, collectionController.deleteKeyboard);
 
-router.post('/listings', authMiddleware, listingController.createListing);
-router.get('/listings/userListings', authMiddleware, listingController.getUserListings);
-router.get('/listings', listingController.getAllListings);
+router.post('/listing', authMiddleware, listingController.createListing);
+router.get('/listing/userListings', authMiddleware, listingController.getUserListings);
+router.get('/listing', listingController.getAllListings);
+router.get('/listing/:id', listingController.getListingById);
+
+router.post('/bid', authMiddleware, bidController.placeBid);
+router.get('/bid/:listingId', authMiddleware, bidController.getListingBids);
+router.delete('/bid/:id', authMiddleware, () => {});
 
 module.exports = router;

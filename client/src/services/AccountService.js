@@ -1,4 +1,4 @@
-const url = 'http://localhost:3005/users';
+const url = 'http://localhost:3005/user';
 
 const AccountService = {};
 
