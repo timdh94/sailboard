@@ -2,17 +2,20 @@ import React from 'react';
 import './App.css';
 import NavBar from './components/nav/NavBar/NavBar';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import AccountService from './services/AccountService';
 import { useDispatch } from 'react-redux';
 import LoginForm from './components/login/Login';
 import CreateAccount from './components/account/CreateAccount/CreateAccount';
 import Account from './components/account/AccountPage/Account/Account';
 import Collection from './components/collection/KeyboardCollection/KeyboardCollection';
+import UserListings from './components/userListings/UserListings/UserListings';
+import BrowseAll from './components/browse/BrowseAll/BrowseAll';
 
 
 function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     (async () => {
       const accessToken = localStorage.getItem('accessToken');
@@ -32,6 +35,8 @@ function App() {
         <Route path='/createaccount' exact component={CreateAccount} />
         <Route path='/account' exact component={Account} />
         <Route path='/mycollection' exact component={Collection} />
+        <Route path='/mylistings' exact component={UserListings} />
+        <Route path='/browse' exact component={BrowseAll} />
       </div>
     </Router>
   );
