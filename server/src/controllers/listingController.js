@@ -31,14 +31,14 @@ const getUserListings = async (req, res) => {
     }
     
     const userListings = await db.Listing.findAll({
-      include: [{
-        model: db.Keyboard
-      }],
+      include: [
+        { model: db.Keyboard }, 
+        { model: db.Bid },
+      ],
       where: {
         UserId: userId 
       }
     });
-
 
     res.status(200).send({
       message: 'User listings retreived',
