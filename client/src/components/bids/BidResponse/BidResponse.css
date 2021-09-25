@@ -1,0 +1,27 @@
+.bid-response-container {
+  width: 95%;
+  max-width: 1200px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid blue;
+}
+
+.bid-details-container {
+  display: flex;
+  flex-direction: fow;
+  margin: 0.5rem;
+}
+
+.bid-details-container div {
+  height: 100%;
+  margin: 1rem;
+}
+
+.bid-response-buttons-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}

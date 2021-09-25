@@ -4,7 +4,6 @@ const BidService = {};
 
 BidService.placeBid = async (bid) => {
   const authToken = localStorage.getItem('accessToken');
-  console.log(authToken);
   if (!authToken) return {
     message: 'Not authenticated, please log in'
   };

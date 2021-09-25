@@ -9,7 +9,7 @@ const defaultForm = {
 
 // TODO: get min bid from listing, set min as that value
 
-const BidForm = ({ setPlacingBid, minBid, listingId }) => {
+const BidForm = ({ setPlacingBid, minBid, listing }) => {
   const [form, setForm] = useState(defaultForm);
   
   const handleChange = (e) => {
@@ -22,10 +22,11 @@ const BidForm = ({ setPlacingBid, minBid, listingId }) => {
   
   const placeBid = async (e) => {
     e.preventDefault();
+    console.log(listing);
     const bidToSend = {
       bid: form.bid,
       message: form.message,
-      listingId
+      listing
     };
     const res = await BidService.placeBid(bidToSend);
     console.log(res);
