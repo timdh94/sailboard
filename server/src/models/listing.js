@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
       foreignKey: { allowNull: false }
     });
+    db.Listing.hasMany(db.Bid);
   }
   return Listing;
 };
