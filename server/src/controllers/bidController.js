@@ -1,41 +1,60 @@
 const db = require('../models/index');
 
 const placeBid = async (req, res) => {
-  // retrieve listing and ensure that min bid is correct
   // validate data
+  // CHECK IF USER HAS ACTIVE BID ON LISTING!!!
 
-  const userId = req.userId;
-  if (!userId) {
-    res.status(403).send({
-      message: 'Not authenticated'
+  try {
+    const userId = req.userId;
+    const reqBid = req.body;
+    if (!userId) {
+      res.status(403).send({
+        message: 'Not authenticated'
+      });
+      return;
+    }
+    const bidder = await db.User.findOne({
+      where: {
+        id: userId
+      }
     });
-    return;
-  }
+    if (!bidder) {
+      res.status(403).send({
+        message: 'Error validating user credentials'
+      });
+      return;
+    }
+
+    const listing = reqBid.listing;
+    if (reqBid.bid <= 0 || reqBid.bid <= listing.minBid) {
+      res.status(400).send({
+        message: 'Bid must be greater than the listing\'s minimum bid.'
+      });
+      return;
+    }
   
-  const reqBid = req.body;
-  
-  if (reqBid.bid <= 0) {
-    res.status(400).send({
-      message: 'Bid must be greater than or equal to $0'
-    });
-  }
-  const newBid = {
-    status: 'Pending response',
-    amount: reqBid.bid,
-    message: reqBid.message,
-    ListingId: reqBid.listingId,
-    UserId: userId,
-  };
-  
-  console.log(newBid);
-  
-  const placedBid = await db.Bid.create(newBid);
-  console.log(placedBid);
-  
-  res.status(200).send({
-    message: 'Bid placed',
-    placedBid
+    const newBid = {
+      status: 'Pending response',
+      amount: reqBid.bid,
+      message: reqBid.message,
+      bidderLocation: bidder.country,
+      ListingId: reqBid.listing.id,
+      SellerId: listing.UserId,
+      UserId: userId,
+    };
+    
+    const placedBid = await db.Bid.create(newBid);
+    
+    res.status(200).send({
+      message: 'Bid placed',
+      placedBid
   });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({
+      message: 'Error placing bid, try again later'
+    });
+  }
 };
 
 const getListingBids = async (req, res) => {

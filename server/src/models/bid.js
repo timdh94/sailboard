@@ -19,6 +19,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 'No message'
     },
+    bidderLocation: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+    SellerId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
   });
   Bid.associate = db => {
     db.Bid.belongsTo(db.User, {
