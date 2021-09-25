@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './Login.css';
 import { Link, useHistory } from 'react-router-dom';
 import UserService from '../../services/LoginService';
@@ -25,6 +25,7 @@ const LoginForm = ({ setIsAuthenticated }) => {
       dispatch({ type: 'LOGIN', payload: res.user });
       history.push('/account');
     }
+    console.log(setIsAuthenticated);
   };
   
   const handleChange = (e) => {

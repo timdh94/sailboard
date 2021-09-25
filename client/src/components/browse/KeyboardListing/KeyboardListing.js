@@ -1,4 +1,5 @@
 import './KeyboardListing.css';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 const KeyboardListing = ({ listing }) => {
@@ -7,6 +8,8 @@ const KeyboardListing = ({ listing }) => {
   const goToListing = () => {
     history.push(`/listing/${listing.id}`);
   };
+  
+  if (!listing) return (<div>error loading listing</div>)
 
   return (
     <div className='keyboard-listing-container' onClick={goToListing}>

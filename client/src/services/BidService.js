@@ -1,4 +1,4 @@
-const url = 'http://localhost:3005/bid';
+const url = 'http://localhost:3005/bid/';
 
 const BidService = {};
 
@@ -22,15 +22,32 @@ BidService.placeBid = async (bid) => {
 };
 
 BidService.getListingBids = async (listingId) => {
-  const authToken = localStorage.getItem('accessToken');
-  return fetch(`${url}/${listingId}`, {
+  const accessToken = localStorage.getItem('accessToken');
+  return fetch(`${url}${listingId}`, {
     method: 'GET',
     credentials: 'include',
     mode: 'cors',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${authToken}`
+      Authorization: `Bearer ${accessToken}`
     }
+  })
+    .then(res => res.json())
+    .catch(err => console.log(err));
+};
+
+BidService.rejectBid = async(bid) => {
+  const accessToken = localStorage.getItem('accessToken');
+  
+  return fetch (url + 'reject', {
+    method: 'PATCH',
+    credentials: 'include',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`
+    },
+    body: JSON.stringify(bid)
   })
     .then(res => res.json())
     .catch(err => console.log(err));

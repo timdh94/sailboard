@@ -22,6 +22,8 @@ router.get('/listing/:id', listingController.getListingById);
 
 router.post('/bid', authMiddleware, bidController.placeBid);
 router.get('/bid/:listingId', authMiddleware, bidController.getListingBids);
+router.get('/bid/user', authMiddleware, bidController.getUserBids);
+router.patch('/bid/reject', authMiddleware, bidController.rejectBid)
 router.delete('/bid/:id', authMiddleware, () => {});
 
 module.exports = router;

@@ -1,6 +1,6 @@
 import './ListingDetails.css';
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import ListingService from '../../../services/listingService';
 import BidForm from '../BidForm/BidForm';
 
@@ -70,7 +70,7 @@ const ListingDetails = () => {
         <BidForm 
         setPlacingBid={setPlacingBid}
         minBid={listing.minBid}
-        listingId={listing.id}
+        listing={listing}
       />
       }
     </div>

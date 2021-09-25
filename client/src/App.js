@@ -12,12 +12,18 @@ import Collection from './components/collection/KeyboardCollection/KeyboardColle
 import UserListings from './components/userListings/UserListings/UserListings';
 import BrowseAll from './components/browse/BrowseAll/BrowseAll';
 import ListingDetails from './components/browse/ListingDetails/ListingDetails';
+//import BidService from './services/BidService';
+//import ListingService from './services/listingService';
+
+
+// TODO: get listings on page load <--- check for pending bids
 
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // Check auth status
     (async () => {
       const accessToken = localStorage.getItem('accessToken');
       if (!accessToken) return;

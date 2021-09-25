@@ -1,4 +1,5 @@
 import './AccountDetails.css';
+import React from 'react';
 
 const AccountDetails = ({ userInfo }) => {
   if (!userInfo) return (<div>error loading user info</div>);

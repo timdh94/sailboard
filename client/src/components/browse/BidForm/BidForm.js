@@ -1,5 +1,5 @@
 import './BidForm.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import BidService from '../../../services/BidService';
 
 const defaultForm = {

@@ -2,6 +2,7 @@ import './Account.css';
 import AccountService from '../../../../services/AccountService';
 import { useSelector, useDispatch } from 'react-redux';
 import AccountDetails from '../AccountDetails/AccountDetails';
+import React from 'react';
 const { useEffect } = require('react');
 const { useHistory } = require('react-router-dom');
 
