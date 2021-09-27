@@ -36,6 +36,20 @@ BidService.getListingBids = async (listingId) => {
     .catch(err => console.log(err));
 };
 
+BidService.getUserBids = async (accessToken) => {
+  return fetch('http://localhost:3005/user/bids', {
+    method: 'GET',
+    credentials: 'include',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`
+    }
+  })
+    .then(res => res.json())
+    .catch(err => console.log(err));
+};
+
 BidService.rejectBid = async(bid) => {
   const accessToken = localStorage.getItem('accessToken');
   
