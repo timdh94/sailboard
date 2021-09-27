@@ -27,12 +27,22 @@ const ListingDetails = () => {
   return (
     <div className='listing-details-container'>
       <div className='picture-details-container'>
-        <div className='picture-container'>
-          picture here
+        <div 
+          className='picture-container'
+          style={{
+            backgroundImage: `url(http://localhost:3005/uploads/${listing.Keyboard.image})`
+          }}
+        >
         </div>
         <div className='overview-container'>
           <div className='boardName'>
             {listing.Keyboard.boardName}
+          </div>
+          <div className='listing-details-min-bid'>
+            minimum bid: <span>${listing.minBid}</span>
+          </div>
+          <div className='seller-name'>
+            sold by: {listing.sellerName}
           </div>
           <div className='manufacturer'>
             maker: {listing.Keyboard.manufacturer}
@@ -46,23 +56,16 @@ const ListingDetails = () => {
           <div className='item-location'>
             located in: {listing.itemLocation}
           </div>
-          <div className='seller-name'>
-            listed by: {listing.sellerName}
-          </div>
         </div>
       </div>
       <div className='board-description'>
         {listing.Keyboard.description}
       </div>
-      <div className='bid-info-container'>
-        <div className='min-bid'>
-          ${listing.minBid}
-        </div>
-      </div>
       {!placingBid && 
         <input
           type='button'
           value='place bid'
+          className='listing-details-place-bid-button'
           onClick={() => {setPlacingBid(true)}}
         />
       }
