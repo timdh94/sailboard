@@ -1,30 +1,37 @@
 import './BidResponse.css';
 import BidService from '../../../services/BidService';
-import React from 'react';
-//import  { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
 
 const BidResponse = ({ bid }) => {
+  const [currBid, setCurrBid] = useState(bid);
   const rejectBid = async () => {
     const res = await BidService.rejectBid(bid);
-    console.log(res);
+    if (res.message) {
+      setCurrBid({
+        ...bid,
+        status: 'Rejected'
+      });
+    }
   };
-  
+
   return (
     <div className='bid-response-container'>
       <div className='bid-details-container'>
-        <div>{bid.status}</div>
-        <div>${bid.amount}</div>
-        <div>{bid.message}</div>
-        <div>location: {bid.bidderLocation}</div>
+        <div className='bid-details-status'>{currBid.status}</div>
+        <div className='bid-details-amount'>${currBid.amount}</div>
+        <div>{currBid.message}</div>
+        <div>bidder location: <span className='bidder-location'>{currBid.bidderLocation}</span></div>
       </div>
       <div className='bid-response-buttons-container'>
         <input
           type='button'
           value='accept bid'
+          className='bid-response-button bid-response-accept'
         />
         <input
           type='button'
           value='reject bid'
+          className='bid-response-button bid-response-reject'
           onClick={rejectBid}
         />
       </div>
