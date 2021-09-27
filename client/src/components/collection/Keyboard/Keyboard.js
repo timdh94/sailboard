@@ -3,11 +3,13 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import CollectionService from '../../../services/collectionService';
 import ListingService from '../../../services/listingService';
+import { useHistory } from 'react-router-dom';
 
 // TODO: check for keyboards that are already lists for sale --->
 // link to listing instead of list for sale button
 
 const Keyboard = ({ board }) => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const [isListing, setIsListing] = useState(false);
   const [minBid, setMinBid] = useState(0);
@@ -60,14 +62,15 @@ const Keyboard = ({ board }) => {
             <p><span className='description-header'>manufacturer:</span> {board.manufacturer}</p>
             <p><span className='description-header'>description:</span> {board.description}</p>
             <div className='keyboard-button-container'>
-              <input
-                type='button'
-                id={board.id.toString()}
-                className='keyboard-display-button keyboard-display-delete-button'
-                onClick={deleteBoard}
-                value='delete'
-              />
-              {!isListing && 
+              {board.Listing && 
+                <input
+                  type='button'
+                  className='keyboard-display-button keyboard-display-list-button'
+                  value='view listing'
+                  onClick={() => {history.push(`/listing/${board.Listing.id}`)}}
+                />
+              }
+              {!isListing && !board.Listing && 
                 <input
                   type='button'
                   id={board.id.toString()}
@@ -76,6 +79,13 @@ const Keyboard = ({ board }) => {
                   value='list for sale'
                 />
               }
+              <input
+                type='button'
+                id={board.id.toString()}
+                className='keyboard-display-button keyboard-display-delete-button'
+                onClick={deleteBoard}
+                value='delete'
+              />
             </div>
           </div>
         </div>
