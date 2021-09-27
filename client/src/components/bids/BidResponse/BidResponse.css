@@ -1,16 +1,21 @@
 .bid-response-container {
+  margin: 1rem;
   width: 95%;
   max-width: 1200px;
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
-  border: 1px solid blue;
+  border-radius: 0.2rem;
+  background-color: #3d4453; 
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 
 .bid-details-container {
   display: flex;
-  flex-direction: fow;
+  justify-content: space-around;
+  align-items: center;
   margin: 0.5rem;
+  font-size: 1rem;
 }
 
 .bid-details-container div {
@@ -24,4 +29,51 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+.bid-details-status {
+  color: #E06C75; 
+}
+
+.bid-details-amount {
+  color: #98C379;
+}
+
+.bidder-location {
+  color: #98C379;
+}
+
+.bid-response-button {
+  height: 30px;
+  width: 120px;
+  font-size: 1rem;
+  text-decoration: none;
+  display: inline-block;
+  border: none;
+  border-radius: 0.2rem;
+  margin: 1rem;
+  transition: all 0.2s ease-in;
+  align-self: flex-end;
+  justify-self: right;
+}
+
+.bid-response-accept {
+  background-color: #98C379;
+}
+
+.bid-response-accept:hover {
+  cursor: pointer;
+  color: #98C379;
+  background-color: #333E52;
+}
+
+.bid-response-reject {
+  background-color: rgb(196, 71, 71);
+  color: #333E52
+}
+
+.bid-response-reject:hover {
+  color: rgb(196, 71, 71);
+  background-color: #4f5766;
+  cursor: pointer;
 }

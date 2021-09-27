@@ -1,0 +1,11 @@
+.fresh-items-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 317px);
+  grid-auto-rows: auto;
+}
+
+.fresh-items-title {
+  font-size: 2rem;
+  padding-left: 1rem;
+  color: #E06C75; 
+}

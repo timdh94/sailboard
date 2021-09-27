@@ -4,7 +4,6 @@ import React from 'react';
 //import  { useSelector, useDispatch } from 'react-redux';
 
 const BidResponse = ({ bid }) => {
-  
   const rejectBid = async () => {
     const res = await BidService.rejectBid(bid);
     console.log(res);
