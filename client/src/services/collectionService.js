@@ -22,10 +22,9 @@ CollectionService.addKeyboard = async (keyboard, accessToken) => {
     credentials: 'include',
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`
     },
-    body: JSON.stringify(keyboard),
+    body: keyboard 
   })
     .then(res => res.json())
     .catch(err => console.log(err));
