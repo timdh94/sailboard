@@ -1,3 +1,4 @@
+import './KeyboardCollection.css';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -29,7 +30,7 @@ const Collection = () => {
 
   if (isLoading) return (<></>);
   return (
-    <div>
+    <div className='keyboard-collection-container'>
       <h1>your keyboards</h1>
       {!isAdding &&
         <input
@@ -40,7 +41,7 @@ const Collection = () => {
           value='add keyboard'
         />
       }
-      {isAdding && <AddKeyboard />}
+      {isAdding && <AddKeyboard setIsAdding={setIsAdding} />}
       {collection.map(board => (
         <Keyboard key={board.id} board={board} />
       ))}
