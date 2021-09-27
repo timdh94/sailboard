@@ -25,8 +25,9 @@ const NavBar = () => {
       <ul className="navbar-list">
         <Link to={'/'} className='top-nav-list active'>home</Link>
         <Link to={'/browse'} className='top-nav-list'>browse</Link>
-        {isAuthenticated && <Link to={'/mycollection'} className='top-nav-list'>my collection</Link>}
-        {isAuthenticated && <Link to={'/mylistings'} className='top-nav-list'>my listings</Link>}
+        {isAuthenticated && <Link to={'/mycollection'} className='top-nav-list'>collection</Link>}
+        {isAuthenticated && <Link to={'/mylistings'} className='top-nav-list'>listings</Link>}
+        {isAuthenticated && <Link to={'/mybids'} className='top-nav-list'>bids </Link>}
         {isAuthenticated &&
           <Link 
             to={'/account'} 
