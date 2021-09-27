@@ -50,24 +50,36 @@ const Keyboard = ({ board }) => {
     <div className='board-container' key={board.id}>
       <div className='details-container'>
         <div className='collection-board'>
-          <div className='board-picture'>
-            picture here
-          </div>
+          <img 
+            className='board-picture'
+            src={`http://localhost:3005/uploads/${board.image}`} 
+          />
           <div className='board-details'>
             <p><span className='description-header'>name:</span> {board.boardName}</p>
             <p><span className='description-header'>size:</span> {board.boardSize}</p>
             <p><span className='description-header'>manufacturer:</span> {board.manufacturer}</p>
             <p><span className='description-header'>description:</span> {board.description}</p>
+            <div className='keyboard-button-container'>
+              <input
+                type='button'
+                id={board.id.toString()}
+                className='keyboard-display-button keyboard-display-delete-button'
+                onClick={deleteBoard}
+                value='delete'
+              />
+              {!isListing && 
+                <input
+                  type='button'
+                  id={board.id.toString()}
+                  className='keyboard-display-button keyboard-display-list-button'
+                  onClick={() => {setIsListing(true)}}
+                  value='list for sale'
+                />
+              }
+            </div>
           </div>
         </div>
-        <input
-          type='button'
-          id={board.id.toString()}
-          className='delete-board'
-          onClick={deleteBoard}
-          value='delete'
-        />
-        {isListing ? 
+        {isListing && 
           <div className='listing-form'>
             <form className='create-listing-form' onSubmit={createListing}>
               <label htmlFor='minBidPrice'>minumum bid:</label>
@@ -93,14 +105,6 @@ const Keyboard = ({ board }) => {
             </form>
             {serverRes}
           </div>
-        :
-          <input
-            type='button'
-            id={board.id.toString()}
-            className='sell-board'
-            onClick={() => {setIsListing(true)}}
-            value='list for sale'
-          />
         }
       </div>
     </div>
