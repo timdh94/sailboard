@@ -1,0 +1,12 @@
+.home-page-banner {
+  width: 100%;
+  height: 350px;
+  background-image: url("http://localhost:3005/site/main_banner.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8rem;
+  color: white;
+}

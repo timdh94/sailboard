@@ -12,12 +12,9 @@ import Collection from './components/collection/KeyboardCollection/KeyboardColle
 import UserListings from './components/userListings/UserListings/UserListings';
 import BrowseAll from './components/browse/BrowseAll/BrowseAll';
 import ListingDetails from './components/browse/ListingDetails/ListingDetails';
-//import BidService from './services/BidService';
-//import ListingService from './services/listingService';
-
-
-// TODO: get listings on page load <--- check for pending bids
-
+import UserBids from './components/bids/UserBids/UserBids';
+import HomePage from './components/homepage/HomePage';
+import Footer from './components/footer/Footer';
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +35,7 @@ function App() {
     <Router>
       <div>
         <NavBar />
+        <Route path='/' exact component={HomePage} />
         <Route path='/login' exact component={LoginForm} />
         <Route path='/createaccount' exact component={CreateAccount} />
         <Route path='/account' exact component={Account} />
@@ -45,6 +43,8 @@ function App() {
         <Route path='/mylistings' exact component={UserListings} />
         <Route path='/browse' exact component={BrowseAll} />
         <Route path='/listing/:id' exact component={ListingDetails} />
+        <Route path='/mybids' exact component={UserBids} />
+        <Footer />
       </div>
     </Router>
   );
