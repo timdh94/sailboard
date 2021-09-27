@@ -11,6 +11,7 @@ const defaultForm = {
 
 const BidForm = ({ setPlacingBid, minBid, listing }) => {
   const [form, setForm] = useState(defaultForm);
+  const [serverRes, setServerRes] = useState('');
   
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +30,10 @@ const BidForm = ({ setPlacingBid, minBid, listing }) => {
       listing
     };
     const res = await BidService.placeBid(bidToSend);
-    console.log(res);
+    if (res.message) {
+      setServerRes(res.message);
+      setForm(defaultForm);
+    }
   };
 
   return (
@@ -55,6 +59,7 @@ const BidForm = ({ setPlacingBid, minBid, listing }) => {
           />
         </label>
       </form>
+      {serverRes}
       <div className='bit-form-button-container'>
         <input
           className='bid-form-submit-button'
