@@ -2,8 +2,8 @@
   border: 1px solid black;
   margin: 1rem;
   display: flex;
+  flex-direction: column;
   padding: 1rem;
-  width: 90%;
   max-width: 1200px;
 }
 
@@ -11,19 +11,36 @@
   cursor: pointer;
 }
 
+.listing-picture-container {
+  height: 250px;
+  width: 350px
+}
+
 .listing-picture {
-  width: 25%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
 }
 
 .listing-details {
-  width: 25%;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  margin-right: 1rem;
 }
 
 .listing-description {
   width: 45%;
+}
+
+.board-picture {
+  display: block;
+  margin-right: 1rem;
+  max-height: 300px;
+  max-width: 350px;
+  border-radius: 0.5rem;
+}
+
+.test-image {
+  width: 1000px;
 }

@@ -9,12 +9,17 @@ const KeyboardListing = ({ listing }) => {
     history.push(`/listing/${listing.id}`);
   };
   
+  //const backgroundURL = `url(http://localhost:3005/uploads/${listing.Keyboard.image})`;
+  
   if (!listing) return (<div>error loading listing</div>)
 
   return (
     <div className='keyboard-listing-container' onClick={goToListing}>
-      <div className='listing-picture'>
-        picture here
+      <div className='listing-picture-container'>
+        <img 
+          className='listing-picture'
+          src={`http://localhost:3005/uploads/${listing.Keyboard.image}`}
+        />
       </div>
       <div className='listing-details'>
         <p>Board: {listing.Keyboard.boardName}</p>
@@ -22,9 +27,6 @@ const KeyboardListing = ({ listing }) => {
         {(listing.minBid) ? 
           <p>Minimum bid: ${listing.minBid}</p>
         : <></>}
-      </div>
-      <div className='listing-description'>
-        <p>{listing.Keyboard.description}</p>
       </div>
     </div>
   )
