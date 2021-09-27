@@ -103,7 +103,6 @@ const rejectBid = async (req, res) => {
     return;
   }
   const bid = req.body;
-  // check if bid exists
   
   const updatedBid = await db.Bid.update(
     { status: 'Rejected' },
@@ -121,13 +120,11 @@ const rejectBid = async (req, res) => {
 
 const getUserBids = async (req, res) => {
   const userId = req.userId
-  
   const userBids = await db.Bid.findAll({
     where: {
       UserId: userId
     }
   });
-  
   res.status(200).send({
     message: 'Bids retrieved',
     userBids

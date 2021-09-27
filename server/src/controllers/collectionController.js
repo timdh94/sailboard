@@ -11,6 +11,9 @@ const getUserCollection = async (req, res) => {
     
     const id = req.userId;
     const userCollection = await db.Keyboard.findAll({
+      include: [
+        { model: db.Listing }
+      ],
       where: {
         UserId: id
       }
@@ -42,7 +45,6 @@ const addKeyboardToCollection = async (req, res) => {
     
     const board = req.body;
     board.UserId = id;
-    console.log(image);
     
     const addedBoard = await db.Keyboard.create({
       ...board,
