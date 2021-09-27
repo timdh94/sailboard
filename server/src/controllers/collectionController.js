@@ -31,6 +31,8 @@ const getUserCollection = async (req, res) => {
 const addKeyboardToCollection = async (req, res) => {
   try {
     const id = req.userId;
+    const image = req.file;
+    // TODO: add imagePath (image.path) to keyboard data model
     if (!id) {
       res.status(403).send({
         message: 'Invalid credentials'
@@ -38,12 +40,14 @@ const addKeyboardToCollection = async (req, res) => {
       return;
     }
     
-    // TODO: validate data
-    
     const board = req.body;
     board.UserId = id;
+    console.log(image);
     
-    const addedBoard = await db.Keyboard.create(board);
+    const addedBoard = await db.Keyboard.create({
+      ...board,
+      image: image.filename
+    });
     
     if (res) {
       res.status(200).send({

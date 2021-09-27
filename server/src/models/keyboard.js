@@ -33,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(50),
       allowNull: false,
       defaultValue: 'none'
+    },
+    image: {
+      type: DataTypes.STRING(250),
+      allowNull: false
     }
   });
   Keyboard.associate = db => {
