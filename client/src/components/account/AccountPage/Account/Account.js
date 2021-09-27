@@ -2,6 +2,7 @@ import './Account.css';
 import AccountService from '../../../../services/AccountService';
 import { useSelector, useDispatch } from 'react-redux';
 import AccountDetails from '../AccountDetails/AccountDetails';
+import AccountNav from '../../AccountNav/AccountNav';
 import React from 'react';
 const { useEffect } = require('react');
 const { useHistory } = require('react-router-dom');
@@ -30,6 +31,7 @@ const Account = () => {
   
   return (
     <div className='account-container'>
+      <AccountNav />
       <AccountDetails userInfo={userInfo}/>
     </div>
   );
