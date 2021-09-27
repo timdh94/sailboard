@@ -9,7 +9,7 @@ const formInitialState = {
   password: '',
 };
 
-const LoginForm = ({ setIsAuthenticated }) => {
+const LoginForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [loginForm, setLoginForm] = useState(formInitialState);
@@ -25,7 +25,6 @@ const LoginForm = ({ setIsAuthenticated }) => {
       dispatch({ type: 'LOGIN', payload: res.user });
       history.push('/account');
     }
-    console.log(setIsAuthenticated);
   };
   
   const handleChange = (e) => {
