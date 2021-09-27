@@ -59,10 +59,21 @@ const listings = (state = [], action) => {
   }
 };
 
+const bids = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_USER_BIDS':
+      return [
+        ...action.payload
+      ];
+    default: return state;
+  }
+};
+
 const reducers = combineReducers({
   auth,
   collection,
   listings,
+  bids,
 });
 
 export default reducers;
