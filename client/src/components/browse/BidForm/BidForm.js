@@ -56,6 +56,7 @@ const BidForm = ({ setPlacingBid, minBid, listing }) => {
             rows={5}
             cols={50}
             onChange={handleChange}
+            value={form.message}
           />
         </label>
       </form>

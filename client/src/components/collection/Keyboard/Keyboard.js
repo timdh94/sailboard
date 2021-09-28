@@ -106,12 +106,14 @@ const Keyboard = ({ board }) => {
                 onChange={updatePrice}
               />
               <input
+                className='create-listing-button create-listing-button-post'
                 type='submit'
                 name='postListing'
                 id='postListingButton'
                 value='create listing'
               />
               <input
+                className='create-listing-button create-listing-button-cancel'
                 type='button'
                 name='cancelListing'
                 value='cancel'

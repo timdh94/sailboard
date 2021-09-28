@@ -19,7 +19,11 @@ const BidResponse = ({ bid }) => {
   
   const acceptBid = async () => {
     const res = await BidService.acceptBid(bid);
-    console.log(res);
+    setServerRes(res.message);
+    setCurrBid({
+      ...bid,
+      status: 'Accepted!'
+    });
   }
 
 

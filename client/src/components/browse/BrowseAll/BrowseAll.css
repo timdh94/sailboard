@@ -3,3 +3,17 @@
   grid-template-columns: repeat(auto-fill, 317px);
   grid-auto-rows: auto;
 };
+
+.search-options-conatiner {
+  width: 100%;
+}
+.search-bar-text {
+  margin: 2rem;
+  width: 500px; 
+  height: 35px;
+  font-size: 1.2rem;
+}
+
+label {
+  margin-left: 1rem;
+}
