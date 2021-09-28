@@ -138,7 +138,6 @@ const getUserHistory = async (req, res) => {
   const listingHistory = await db.SoldListing.findAll({
     include: [
       { model: db.Keyboard },
-      { model: db.User, }
     ],
     where: {
       [Op.or]: [

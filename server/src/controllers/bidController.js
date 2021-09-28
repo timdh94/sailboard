@@ -104,7 +104,7 @@ const rejectBid = async (req, res) => {
   }
   const bid = req.body;
   
-  const updatedBid = await db.Bid.update(
+  await db.Bid.update(
     { status: 'Rejected' },
     { where: {
       id: bid.id
@@ -155,6 +155,7 @@ const acceptBid = async (req, res) => {
     soldPrice: bid.amount,
     BidderId: bid.UserId,
     UserId: bid.SellerId,
+    winnerUserName: winner.userName,
     winnerEmail: winner.email,
     KeyboardId: bidWithListing.Listing.KeyboardId
   };

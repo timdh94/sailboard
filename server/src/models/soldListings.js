@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
+    winnerUserName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     winnerEmail: {
       type: DataTypes.STRING,
       allowNull: false

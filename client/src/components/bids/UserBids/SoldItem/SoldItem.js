@@ -2,7 +2,7 @@ import './SoldItem.css';
 import React from 'react';
 
 const SoldItem = ({ item, userName }) => {
-  const didWin = item.User.userName !== userName;
+  const didWin = item.winnerUserName === userName;
   return (
     <div className='sold-item-container'>
       <div 
@@ -21,7 +21,7 @@ const SoldItem = ({ item, userName }) => {
       }
       {!didWin && 
         <div className='sold-item-info'>
-          <p>sold to: {item.User.userName}</p>
+          <p>sold to: {item.winnerUserName}</p>
           <p>sold price: ${item.soldPrice}</p>
           <p>contact: {item.winnerEmail}</p>
         </div>

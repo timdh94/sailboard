@@ -16,7 +16,7 @@ const UserBids = () => {
       const newSold = [];
       if (res.listingHistory) {
         for (let i = 0; i < res.listingHistory.length; i++) {
-          if (res.listingHistory[i].User.userName === userName) {
+          if (res.listingHistory[i].winnerUserName === userName) {
             newWon.push(res.listingHistory[i]);
           } else {
             newSold.push(res.listingHistory[i]);
@@ -32,7 +32,7 @@ const UserBids = () => {
     <div className='history-container'>
       <div className='history-title history-title-sold'>sold items</div>
       <div className='won-items-container'>
-        {wonItems.map(listing => {
+        {soldItems.map(listing => {
           if (listing.Keyboard) return (
             <div key={listing.id}>
               <SoldItem item={listing} userName={userName}/>
@@ -42,7 +42,7 @@ const UserBids = () => {
       </div>
       <div className='history-title history-title-won'>won items</div>
       <div className='sold-items-container'>
-        {soldItems.map(listing => {
+        {wonItems.map(listing => {
           console.log(soldItems);
           if (listing.Keyboard) return ( 
             <div key={listing.id}>

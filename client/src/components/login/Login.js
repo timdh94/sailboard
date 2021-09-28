@@ -43,6 +43,7 @@ const LoginForm = () => {
             type='text'
             name='nameOrEmail'
             id='userNameInput'
+            autoComplete='off'
             value={loginForm.nameOrEmail}
             required={true}
             onChange={handleChange}
