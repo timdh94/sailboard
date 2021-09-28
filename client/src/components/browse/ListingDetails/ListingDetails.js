@@ -3,12 +3,16 @@ import { useParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import ListingService from '../../../services/listingService';
 import BidForm from '../BidForm/BidForm';
+import { useSelector } from 'react-redux';
 
 const ListingDetails = () => {
   const { id } = useParams();
   const [listing, setListing] = useState({});
   const [keyboardLoaded, setKeyboardLoaded] = useState(false);
   const [placingBid, setPlacingBid] = useState(false);
+  const userInfo = useSelector(state => state.auth.userInfo);
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const [isUsers, setIsUsers] = useState(true);
   
   useEffect(() => {
     (async () => {
@@ -17,6 +21,10 @@ const ListingDetails = () => {
         if (res.listing) {
           setListing(res.listing);
           setKeyboardLoaded(true);
+          console.log(res.listing);
+          if (userInfo && res.listing.UserId !== userInfo.id) {
+            setIsUsers(false);
+          }
         }
       }
     })();
@@ -42,32 +50,37 @@ const ListingDetails = () => {
             minimum bid: <span>${listing.minBid}</span>
           </div>
           <div className='seller-name'>
-            sold by: {listing.sellerName}
+            sold by: <span className='listing-detail'>{listing.sellerName}</span>
           </div>
           <div className='manufacturer'>
-            maker: {listing.Keyboard.manufacturer}
+            maker: <span className='listing-detail'>{listing.Keyboard.manufacturer}</span>
           </div>
           <div className='boardSize'>
-            size: {listing.Keyboard.boardSize}
+            size: <span className='listing-detail'>{listing.Keyboard.boardSize}</span>
           </div>
           <div className='switches'>
-            switches: {listing.Keyboard.switches}
+            switches: <span className='listing-detail'>{listing.Keyboard.switches}</span>
           </div>
           <div className='item-location'>
-            located in: {listing.itemLocation}
+            located in: <span className='listing-detail'>{listing.itemLocation}</span>
           </div>
         </div>
       </div>
       <div className='board-description'>
         {listing.Keyboard.description}
       </div>
-      {!placingBid && 
+      {!placingBid && !isUsers && 
         <input
           type='button'
           value='place bid'
           className='listing-details-place-bid-button'
           onClick={() => {setPlacingBid(true)}}
         />
+      }
+      {!isAuthenticated && 
+        <div className='no-auth-bid'>
+          <a href='http://localhost:3000/login'>Login to place a bid!</a>
+        </div>
       }
       {placingBid && 
         <BidForm 

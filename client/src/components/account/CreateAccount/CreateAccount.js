@@ -32,10 +32,9 @@ const CreateAccount = ({ setIsAuthenticated }) => {
     const res = await AccountService.createAccount(form);
     if (res && res.message) setServerRes(res.message);
     setForm(formDefault);
-    if (res.accessToken) {
-      localStorage.setItem('accessToken', res.accessToken);
+    if (res.message === 'Account created') {
       setIsAuthenticated();
-      history.push('/account');
+      history.push('/login');
     }
   };
 

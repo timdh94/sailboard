@@ -48,14 +48,19 @@ const Keyboard = ({ board }) => {
     setServerRes(res.message);
   };
   
+  const backgroundURL = `http://localhost:3005/uploads/${board.image}`;
+  
   return (
     <div className='board-container' key={board.id}>
       <div className='details-container'>
-        <div className='collection-board'>
-          <img 
+        <div 
+          className='collection-board'>
+          <div 
             className='board-picture'
-            src={`http://localhost:3005/uploads/${board.image}`} 
-          />
+            style={{
+              backgroundImage: `url(${backgroundURL}`,
+            }}>
+          </div>
           <div className='board-details'>
             <p><span className='description-header'>name:</span> {board.boardName}</p>
             <p><span className='description-header'>size:</span> {board.boardSize}</p>

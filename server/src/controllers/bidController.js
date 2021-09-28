@@ -99,7 +99,7 @@ const rejectBid = async (req, res) => {
   // change bid status to rejected ---> store these in a separate database? is it worth it?
   const userId = req.userId;
   if (!userId) {
-    console.log('error no user id');
+    res.status(403).send({ message: 'Invalid credentials' });
     return;
   }
   const bid = req.body;
@@ -110,11 +110,54 @@ const rejectBid = async (req, res) => {
       id: bid.id
     }}
   );
-  console.log(bid);
-  console.log(updatedBid);
   
   res.status(200).send({
     message: 'Bid rejected'
+  });
+};
+
+const acceptBid = async (req, res) => {
+  const userId = req.userId;
+  if (!userId) {
+    res.status(403).send({ message: 'Invalid credentials' });
+    return;
+  }
+  const bid = req.body;
+  
+  const bidWithListing = await db.Bid.findOne({
+    include: [{
+      model: db.Listing
+    }] ,
+    where: {
+      id: bid.id
+    }
+  });
+  
+  // update keyboard UserId to be bidder Id
+  await db.Keyboard.update(
+    { UserId: bid.UserId },
+    { where: {
+      id: bidWithListing.Listing.KeyboardId
+    }}
+  );
+  
+  await db.Listing.destroy({ 
+    where: {
+      id: bidWithListing.Listing.id
+    }
+  });
+
+  const soldListing = {
+    soldPrice: bid.amount,
+    BidderId: bid.UserId,
+    UserId: bid.SellerId,
+    KeyboardId: bidWithListing.Listing.KeyboardId
+  };
+  await db.SoldListing.create(soldListing);
+  
+  res.status(200).send({
+    message: 'Bid accepted!',
+    soldListing
   });
 };
 
@@ -136,4 +179,5 @@ module.exports = {
   getListingBids,
   rejectBid,
   getUserBids,
+  acceptBid,
 };

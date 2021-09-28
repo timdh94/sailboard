@@ -4,7 +4,7 @@ const userController = require('./controllers/userController');
 const collectionController = require('./controllers/collectionController');
 const listingController = require('./controllers/listingController');
 const bidController = require('./controllers/bidController');
-const authMiddleware = require('./middleware/jwtAuth');
+const { authMiddleware, confirmEmail } = require('./middleware/jwtAuth');
 
 const multer = require('multer');
 const upload = multer({ dest: 'images/uploads'});
@@ -22,11 +22,15 @@ router.post('/listing', authMiddleware, listingController.createListing);
 router.get('/listing/userListings', authMiddleware, listingController.getUserListings);
 router.get('/listing', listingController.getAllListings);
 router.get('/listing/:id', listingController.getListingById);
+router.get('/userHistory', authMiddleware, listingController.getUserHistory);
 
 router.post('/bid', authMiddleware, bidController.placeBid);
 router.get('/bid/:listingId', authMiddleware, bidController.getListingBids);
 router.get('/user/bids', authMiddleware, bidController.getUserBids);
 router.patch('/bid/reject', authMiddleware, bidController.rejectBid)
+router.patch('/bid/accept', authMiddleware, bidController.acceptBid);
 router.delete('/bid/:id', authMiddleware, () => {});
+
+router.get('/confirmation/:jwt', confirmEmail);
 
 module.exports = router;

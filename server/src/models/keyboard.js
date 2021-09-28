@@ -47,6 +47,7 @@ module.exports = (sequelize, DataTypes) => {
     db.Keyboard.hasOne(db.Listing, {
       onDelete: 'CASCADE',
     });
+    db.Keyboard.hasOne(db.SoldListing);
   };
   return Keyboard;
 };

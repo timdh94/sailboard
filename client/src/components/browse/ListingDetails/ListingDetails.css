@@ -65,3 +65,20 @@
   color: #98C379;
   background-color: #333E52;
 }
+
+.no-auth-bid {
+  width: 300px;
+  height:100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.no-auth-bid a {
+  color: #61AFEF;
+}
+
+.listing-detail {
+  color: #61AFEF;
+}

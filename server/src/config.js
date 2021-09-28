@@ -7,7 +7,9 @@ const config = {
   DBPASS: process.env.DBPASS || 'no password',
   DATABASE: process.env.DATABASE || 'no database',
   DIALECT: process.env.DIALECT || 'no dialect',
-  ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET || null
+  ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET || null,
+  EMAIL_ACCOUNT: process.env.EMAIL_ACCOUNT,
+  EMAIL_PASSWORD: process.env.EMAIL_PASSWORD
 };
 
 module.exports = config;

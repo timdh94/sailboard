@@ -1,0 +1,30 @@
+.history-container {
+  margin: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.history-title {
+  font-size: 3rem;
+}
+
+.history-title-won {
+  color: #98C379;
+}
+
+.history-title-sold {
+  color: #E06C75; 
+}
+
+.sold-items-container {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.won-items-container {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+}

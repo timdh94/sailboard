@@ -2,14 +2,14 @@ import './AddKeyboard.css';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import CollectionService from '../../../services/collectionService';
-//import FileService from '../../../services/FileService';
 
 const formDefault = {
   boardName: '',
   isSplit: false,
   boardSize: '',
   manufacturer: '',
-  description: ''
+  description: '',
+  switches: ''
 };
 
 const AddKeyboard = ({ setIsAdding }) => {
@@ -53,7 +53,7 @@ const AddKeyboard = ({ setIsAdding }) => {
       <h1 className='form-title'>Add Item</h1>
       {serverRes}
       <form className='add-keyboard-form' onSubmit={submitForm}>
-        <label htmlFor='keyboard-name'>board name
+        <label htmlFor='keyboard-name'>board name</label>
           <input
             type='text'
             name='boardName'
@@ -64,8 +64,7 @@ const AddKeyboard = ({ setIsAdding }) => {
             onChange={handleChange}
             spellCheck='false'
           />
-        </label>
-        <label htmlFor='keyboard-size'>board size
+        <label htmlFor='keyboard-size'>board size</label>
           <input
             type='text'
             name='boardSize'
@@ -76,8 +75,7 @@ const AddKeyboard = ({ setIsAdding }) => {
             onChange={handleChange}
             spellCheck='false'
           />
-        </label>
-        <label htmlFor='keyboard-manufacturer'>manufacturer
+        <label htmlFor='keyboard-manufacturer'>manufacturer</label>
           <input
             type='text'
             name='manufacturer'
@@ -88,34 +86,57 @@ const AddKeyboard = ({ setIsAdding }) => {
             onChange={handleChange}
             spellCheck='false'
           />
-        </label>
-        <label htmlFor='keyboard-description'>description
+        <label htmlFor='isSplit'>split board?
           <input
-            type='text'
+            name='isSplit'
+            id='isSplit'
+            type='checkbox'
+            value={form.isSplit}
+            onChange={() => {
+              setForm({
+                ...form,
+                isSplit: !form.isSplit
+              });
+              console.log(form);
+          }}
+          /> 
+        </label>
+        <label htmlFor='keyboard-switches'>switches</label>
+        <input
+          name='switches'
+          id='keyboard-switches'
+          type='text'
+          value={form.switches}
+          onChange={handleChange}
+        />
+        <label htmlFor='keyboard-description'>description</label>
+          <textarea
             name='description'
             id='keyboard-description'
             value={form.description}
             required={true}
+            rows={5}
             autoComplete='off'
             onChange={handleChange}
             spellCheck='false'
           />
-        </label>
         <input type='file' name='file' onChange={fileChange}/>
-        <input
-          type='submit'
-          name='add-keyboard'
-          id='add-keyboard-button'
-          className='add-keyboard-button add-keyboard-list'
-          value='add to collection'
-        />
-        <input
-          type='button'
-          name='cancel-button'
-          className='add-keyboard-button add-keyboard-cancel'
-          value='cancel'
-          onClick={() => {setIsAdding(false)}}
-        />
+        <div className='add-board-button-container'>
+          <input
+            type='submit'
+            name='add-keyboard'
+            id='add-keyboard-button'
+            className='add-keyboard-button add-keyboard-list'
+            value='add to collection'
+          />
+          <input
+            type='button'
+            name='cancel-button'
+            className='add-keyboard-button add-keyboard-cancel'
+            value='cancel'
+            onClick={() => {setIsAdding(false)}}
+          />
+        </div>
       </form>
     </div>
   )

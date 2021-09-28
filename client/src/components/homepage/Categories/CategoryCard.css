@@ -1,0 +1,7 @@
+.category-image {
+  width: 500px;
+  height: 375px;
+  background-position: center;
+  background-size: cover;
+  border-radius: 0.5rem;
+}

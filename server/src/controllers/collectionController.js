@@ -44,6 +44,7 @@ const addKeyboardToCollection = async (req, res) => {
     }
     
     const board = req.body;
+    console.log(board);
     board.UserId = id;
     
     const addedBoard = await db.Keyboard.create({

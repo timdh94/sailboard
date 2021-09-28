@@ -15,6 +15,7 @@ import ListingDetails from './components/browse/ListingDetails/ListingDetails';
 import UserBids from './components/bids/UserBids/UserBids';
 import HomePage from './components/homepage/HomePage';
 import Footer from './components/footer/Footer';
+import EmailConfirmation from './components/emailconfirmation/EmailConfirmation';
 
 function App() {
   const dispatch = useDispatch();
@@ -40,10 +41,11 @@ function App() {
         <Route path='/createaccount' exact component={CreateAccount} />
         <Route path='/account' exact component={Account} />
         <Route path='/mycollection' exact component={Collection} />
-        <Route path='/mylistings' exact component={UserListings} />
+        <Route path='/incomingBids' exact component={UserListings} />
         <Route path='/browse' exact component={BrowseAll} />
         <Route path='/listing/:id' exact component={ListingDetails} />
-        <Route path='/mybids' exact component={UserBids} />
+        <Route path='/myhistory' exact component={UserBids} />
+        <Route path='/confirmation/:jwt' exact component={EmailConfirmation} />
         <Footer />
       </div>
     </Router>

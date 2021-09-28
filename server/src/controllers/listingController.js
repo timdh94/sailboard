@@ -1,4 +1,5 @@
 const db = require('../models/index');
+const { Op } = require('sequelize');
 
 const getAllListings = async (req, res) => {
   try {
@@ -79,7 +80,6 @@ const createListing = async (req, res) => {
       });
     }
     
-    // CHECK IF LISTINGS EXISTS
     const listingExists = await db.Listing.findOne({
       where: {
         KeyboardId: newListing.boardId
@@ -114,10 +114,9 @@ const createListing = async (req, res) => {
   }
 };
 
-// TODO: more error checing etc here...
 const getListingById = async (req, res) => {
   const id = req.params.id;
-  if (!id) res.send('fuckup');
+  if (!id) res.status(403).send({ message: 'Invalid credentials' });
   
   const listing = await db.Listing.findOne({
     include: [{
@@ -134,9 +133,31 @@ const getListingById = async (req, res) => {
   });
 };
 
+const getUserHistory = async (req, res) => {
+  const userId = req.userId;
+  const listingHistory = await db.SoldListing.findAll({
+    include: [
+      { model: db.Keyboard },
+      { model: db.User, }
+    ],
+    where: {
+      [Op.or]: [
+        { BidderId: userId },
+        { UserId: userId }
+      ]
+    }
+  });
+  
+  res.status(200).send({
+    message: 'History retrieved',
+    listingHistory
+  });
+}
+
 module.exports = {
   getAllListings,
   createListing,
   getUserListings,
   getListingById,
+  getUserHistory,
 };

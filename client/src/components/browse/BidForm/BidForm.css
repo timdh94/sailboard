@@ -9,12 +9,26 @@
   flex-direction: column;
 }
 
+.bid-form-button {
+  height: 30px;
+  width: 120px;
+  font-size: 1.2rem;
+  text-decoration: none;
+  display: inline-block;
+  border: none;
+  border-radius: 0.2rem;
+  transition: all 0.2s ease-in;
+  margin-top: 1rem;
+  margin-right: 1rem;
+  align-self: flex-end;
+  justify-self: right;
+  color: #333E52
+}
+
 .bid-form-cancel-button {
-  width: 100px;
-  height: 25px;
+  background-color: rgb(196, 71, 71);
 }
 
 .bid-form-submit-button {
-  width: 100px;
-  height: 25px;
+  background-color: #98C379;
 }

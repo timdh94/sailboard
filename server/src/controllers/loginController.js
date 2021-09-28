@@ -27,6 +27,10 @@ const authenticate = async (req, res) => {
     res.status(403).send({ message: 'Invalid username or password' });
   }
   
+  if (!user.emailConfirmed) {
+    res.status(403).send({ message: 'Please confirm your email to login' });
+  }
+  
   await bcrypt.compare(loginForm.password, user.Password.dataValues.password)
     .then(async (success) => {
       if (!success) {

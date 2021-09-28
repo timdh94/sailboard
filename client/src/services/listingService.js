@@ -50,4 +50,18 @@ ListingService.getListing = async (id) => {
     .catch(err => console.log(err));
 };
 
+ListingService.getUserHistory = async () => {
+  const accessToken = localStorage.getItem('accessToken');
+  return (fetch('http://localhost:3005/userHistory', {
+    method: 'GET',
+    credentials: 'include',
+    mode: 'cors',
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  }))
+    .then(res => res.json())
+    .catch(err => console.log(err));
+};
+
 export default ListingService;

@@ -62,13 +62,13 @@ const BidForm = ({ setPlacingBid, minBid, listing }) => {
       {serverRes}
       <div className='bit-form-button-container'>
         <input
-          className='bid-form-submit-button'
+          className='bid-form-submit-button bid-form-button'
           type='submit'
           defaultValue='place bid'
           onClick={placeBid}
         />
         <input
-          className='bid-form-cancel-button'
+          className='bid-form-cancel-button bid-form-button'
           type='button'
           defaultValue='cancel'
           onClick={() => {setPlacingBid(false)}}

@@ -50,11 +50,28 @@ BidService.getUserBids = async (accessToken) => {
     .catch(err => console.log(err));
 };
 
-BidService.rejectBid = async(bid) => {
+BidService.rejectBid = async (bid) => {
   const accessToken = localStorage.getItem('accessToken');
   
-  return fetch (url + 'reject', {
+  return fetch(url + 'reject', {
     method: 'PATCH',
+    credentials: 'include',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`
+    },
+    body: JSON.stringify(bid)
+  })
+    .then(res => res.json())
+    .catch(err => console.log(err));
+};
+
+BidService.acceptBid =  async(bid) => {
+  const accessToken = localStorage.getItem('accessToken');
+  
+  return fetch(url + 'accept', {
+    method: 'PATCH' ,
     credentials: 'include',
     mode: 'cors',
     headers: {

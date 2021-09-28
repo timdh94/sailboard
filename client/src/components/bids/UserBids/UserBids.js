@@ -1,39 +1,56 @@
 import './UserBids.css';
-import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import BidService from '../../../services/BidService';
-import UserBidStatus from '../UserBidStatus/UserBidStatus';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import ListingService from '../../../services/listingService';
+import SoldItem from './SoldItem/SoldItem';
 
 const UserBids = () => {
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const userBids = useSelector(state => state.bids);
+  const userName = useSelector(state => state.auth.userInfo.userName);
+  const [wonItems, setWonItems] = useState([]);
+  const [soldItems, setSoldItems]= useState([]);
   
   useEffect(() => {
     (async () => {
-      const accessToken = localStorage.getItem('accessToken');
-      if (!accessToken) {
-        history.push('/login');
-        return;
+      const res = await ListingService.getUserHistory();
+      const newWon = [];
+      const newSold = [];
+      if (res.listingHistory) {
+        for (let i = 0; i < res.listingHistory.length; i++) {
+          if (res.listingHistory[i].User.userName === userName) {
+            newWon.push(res.listingHistory[i]);
+          } else {
+            newSold.push(res.listingHistory[i]);
+          }
+        }
+        setWonItems(newWon);
+        setSoldItems(newSold);
       }
-      const res = await BidService.getUserBids(accessToken);
-      console.log(res);
-      if (res.userBids) {
-        dispatch({
-          type: 'SET_USER_BIDS',
-          payload: res.userBids
-        });
-      }
-      console.log(userBids);
     })();
   }, []);
 
   return (
-    <div>
-      {userBids.map(bid => (
-        <UserBidStatus bid={bid} key={bid.id}/>
-      ))}
+    <div className='history-container'>
+      <div className='history-title history-title-sold'>sold items</div>
+      <div className='won-items-container'>
+        {wonItems.map(listing => {
+          if (listing.Keyboard) return (
+            <div key={listing.id}>
+              <SoldItem item={listing} userName={userName}/>
+            </div>
+          )
+        })}
+      </div>
+      <div className='history-title history-title-won'>won items</div>
+      <div className='sold-items-container'>
+        {soldItems.map(listing => {
+          console.log(soldItems);
+          if (listing.Keyboard) return ( 
+            <div key={listing.id}>
+              <SoldItem item={listing} userName={userName} />
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 };

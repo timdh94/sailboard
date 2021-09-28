@@ -55,6 +55,7 @@
   transition: all 0.2s ease-in;
   align-self: flex-end;
   justify-self: right;
+  color: #333E52;
 }
 
 .bid-response-accept {
@@ -69,7 +70,6 @@
 
 .bid-response-reject {
   background-color: rgb(196, 71, 71);
-  color: #333E52
 }
 
 .bid-response-reject:hover {

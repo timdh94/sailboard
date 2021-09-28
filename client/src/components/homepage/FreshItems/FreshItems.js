@@ -11,7 +11,11 @@ const FreshItems = () => {
     (async () => {
       const res = await ListingService.getAllListings();
       if (res.listings) {
-        setListings(res.listings);
+        const listings = res.listings.sort((a, b) => (
+          b.id - a.id
+        )).slice(0, 8);
+        
+        setListings(listings);
       }
     })();
   }, []);

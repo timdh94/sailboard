@@ -23,6 +23,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 'None specified',
     },
+    emailConfirmed: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    }
   });
   
   User.associate = db => {
@@ -30,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     db.User.hasOne(db.Password);
     db.User.hasMany(db.Listing);
     db.User.hasMany(db.Bid);
-    //db.User.hasMany(db.Keycap);
+    db.User.hasMany(db.SoldListing);
   };
   return User;
 };

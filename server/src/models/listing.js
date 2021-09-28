@@ -29,6 +29,6 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: { allowNull: false }
     });
     db.Listing.hasMany(db.Bid);
-  }
+  };
   return Listing;
 };

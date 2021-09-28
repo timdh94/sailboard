@@ -4,15 +4,24 @@ import React, { useState } from 'react';
 
 const BidResponse = ({ bid }) => {
   const [currBid, setCurrBid] = useState(bid);
+  const [serverRes, setServerRes] = useState('');
+
   const rejectBid = async () => {
     const res = await BidService.rejectBid(bid);
     if (res.message) {
+      setServerRes(res.message);
       setCurrBid({
         ...bid,
         status: 'Rejected'
       });
     }
   };
+  
+  const acceptBid = async () => {
+    const res = await BidService.acceptBid(bid);
+    console.log(res);
+  }
+
 
   return (
     <div className='bid-response-container'>
@@ -27,6 +36,7 @@ const BidResponse = ({ bid }) => {
           type='button'
           value='accept bid'
           className='bid-response-button bid-response-accept'
+          onClick={acceptBid}
         />
         <input
           type='button'
@@ -35,6 +45,7 @@ const BidResponse = ({ bid }) => {
           onClick={rejectBid}
         />
       </div>
+      {serverRes}
     </div>
   );
 };
