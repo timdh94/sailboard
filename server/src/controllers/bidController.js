@@ -146,11 +146,16 @@ const acceptBid = async (req, res) => {
       id: bidWithListing.Listing.id
     }
   });
+  
+  const winner = await db.User.findOne({
+    where: { id: bid.UserId }
+  });
 
   const soldListing = {
     soldPrice: bid.amount,
     BidderId: bid.UserId,
     UserId: bid.SellerId,
+    winnerEmail: winner.email,
     KeyboardId: bidWithListing.Listing.KeyboardId
   };
   await db.SoldListing.create(soldListing);

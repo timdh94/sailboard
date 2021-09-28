@@ -4,12 +4,10 @@ import React, { useState } from 'react';
 
 const BidResponse = ({ bid }) => {
   const [currBid, setCurrBid] = useState(bid);
-  const [serverRes, setServerRes] = useState('');
 
   const rejectBid = async () => {
     const res = await BidService.rejectBid(bid);
     if (res.message) {
-      setServerRes(res.message);
       setCurrBid({
         ...bid,
         status: 'Rejected'
@@ -18,8 +16,7 @@ const BidResponse = ({ bid }) => {
   };
   
   const acceptBid = async () => {
-    const res = await BidService.acceptBid(bid);
-    setServerRes(res.message);
+    await BidService.acceptBid(bid);
     setCurrBid({
       ...bid,
       status: 'Accepted!'
@@ -49,7 +46,6 @@ const BidResponse = ({ bid }) => {
           onClick={rejectBid}
         />
       </div>
-      {serverRes}
     </div>
   );
 };

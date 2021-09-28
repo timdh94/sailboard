@@ -23,7 +23,7 @@ const SoldItem = ({ item, userName }) => {
         <div className='sold-item-info'>
           <p>sold to: {item.User.userName}</p>
           <p>sold price: ${item.soldPrice}</p>
-          <p>contact: {item.User.email}</p>
+          <p>contact: {item.winnerEmail}</p>
         </div>
       }
     </div>

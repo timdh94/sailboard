@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
+    winnerEmail: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   });
   SoldListing.associate = db => {
     db.SoldListing.belongsTo(db.User, {

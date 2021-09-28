@@ -23,7 +23,7 @@ const LoginForm = () => {
     if (res.accessToken) {
       localStorage.setItem('accessToken', res.accessToken);
       dispatch({ type: 'LOGIN', payload: res.user });
-      history.push('/account');
+      history.push('/');
     }
   };
   
