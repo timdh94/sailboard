@@ -13,7 +13,7 @@ npm i
 The project requires environment variables to function, which will be loaded into the config.js file located
 in server/src.
 
-Below is an example .env file.
+Below is an example .env file, which should be located in server/src.
 
 ```
 PORT=3000
@@ -31,7 +31,7 @@ Once the environment variables have been properly configured, simply run
 ```
 npm start
 ```
-to launc the server.
+to launch the server.
 
 ## Client setup
 
