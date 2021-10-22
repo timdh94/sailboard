@@ -22,7 +22,7 @@ DBUSER= sql database user name
 DBPASS= sql database user password
 DATABASE = name of the database (e.g. sailboard)
 DIALECT = sequelize configuration (mysql or postgres)
-ACCESS_TOEKN_SECRET = a secret and secure random string for generating JWTs
+ACCESS_TOKEN_SECRET = a secret and secure random string for generating JWTs
 EMAIL_ACCOUNT = email name for sending mail from nodemailer (optional oAuth setup)
 EMAIL_PASSORD = email account password for nodemailer
 ```
