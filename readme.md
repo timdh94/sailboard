@@ -1,6 +1,5 @@
-#Codeworks solo project.
 
-####A website for buying and selling aftermarket mechanical keyboards.
+##A website for buying and selling aftermarket mechanical keyboards.
 
 ## Server Setup
 
