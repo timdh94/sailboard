@@ -1,6 +1,8 @@
 # Sailboard
 ## A website for buying and selling aftermarket mechanical keyboards.
 
+![Picture of the homepage](https://i.imgur.com/4AJzKUU.png)
+
 ## Server Setup
 
 Glone the repo anywhere on your computer. Change directory into the server folder
